@@ -1,0 +1,103 @@
+/* 主色调 */
+
+/* 主背景色 */
+.bg-main {
+	background-color: #00bfff;
+}
+
+/* 鼠标移入颜色 */
+.bg-main-hover {
+	background-color: #05b0ff;
+}
+
+/* 按钮禁用颜色 */
+.bg-main-disabled {
+	background-color: #62c3ff;
+}
+
+/* 主文字色 */
+.text-main {
+	color: #1B85FF;
+}
+
+/* 分割线颜色 */
+.divider {
+	height: 15rpx;
+	background-color: #F5F5F3;
+}
+
+/* 登录公共样式 */
+.login-icon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100rpx;
+	height: 100rpx;
+}
+
+.login-bg {
+	height: 220rpx;
+	background: linear-gradient(120deg, #87ceeb 0%, #70D6F2 100%);
+}
+
+.login-section {
+	position: absolute;
+	top: 200rpx;
+	left: 0;
+	right: 0;
+	padding: 60rpx 70rpx 0;
+	background-color: #FFFFFF;
+	border-top-left-radius: 30rpx;
+	border-top-right-radius: 30rpx;
+
+	& .login-section-title {
+		color: #35404B;
+		font-size: 40rpx;
+	}
+
+	& .login-section-form {
+		position: relative;
+		margin-bottom: 50rpx;
+
+		& .uni-icons {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100rpx;
+			height: 100rpx;
+			color: #333333;
+		}
+
+		& input {
+			height: 100rpx;
+			padding-left: 100rpx;
+			padding-right: 20rpx;
+			background-color: #F5F5F5;
+			border-radius: 10rpx;
+		}
+	}
+
+	& .login-section-wechat {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 40px;
+
+		& .uni-icons {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 47rpx;
+			height: 47rpx;
+			padding: 10px;
+			border: 1rpx solid #00bfff;
+			border-radius: 100%;
+		}
+	}
+}

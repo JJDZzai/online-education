@@ -1,0 +1,77 @@
+<template>
+	<view class="scroll-row-item mr-2 mt-3" :class="'cource-' + this.colType">
+		<view class="view-first position-relative">
+			<image class="cource-image" :src="item.cover" mode="widthFix"></image>
+			<text class="cource-text text-white font-sm mb-1">{{ item.type | formatType }}</text>
+		</view>
+		<view class="view-second flex flex-column flex-shrink">
+			<text class="font-md text-ellipsis mt-1">{{ item.title }}</text>
+			<text class="font-sm text-light-muted my-1" v-if="item.try" v-html="item.try"></text>
+			<view class="flex flex-1 align-end">
+				<text class="font-md text-danger">￥{{item.price}}</text>
+				<text class="font-sm text-light-muted">￥{{ item.t_price }}</text>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script>
+	let type = {
+		media: "图文",
+		audio: "音频",
+		video: "视频",
+		column: "专栏"
+	}
+	export default {
+		name: "cource-list",
+		props: {
+			item: {
+				type: Object,
+				default: () => {}
+			},
+			colType: {
+				type: String,
+				default: 'two'
+			}
+		},
+		filters: {
+			formatType(k) {
+				return type[k]
+			}
+		},
+		data() {
+			return {
+
+			};
+		}
+	}
+</script>
+
+<style>
+	.cource-one {
+		display: flex !important;
+		
+		& .view-first {
+			flex-shrink: 1;
+			margin-right: 20rpx;
+		}
+	}
+
+	/* 公共样式 */
+	.view-second {
+		width: 340rpx;
+	}
+
+	.cource-image {
+		width: 340rpx;
+		height: 190px;
+	}
+
+	.cource-text {
+		position: absolute;
+		right: 10rpx;
+		bottom: 10rpx;
+		background-color: rgba(0, 0, 0, 0.4);
+		padding: 5rpx 10rpx;
+	}
+</style>

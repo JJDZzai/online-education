@@ -1,0 +1,125 @@
+{
+	"pages": [{
+		"path": "pages/tabbar/index/index",
+		"style": {
+			"enablePullDownRefresh": true,
+			"app-plus": {
+				"titleNView": false
+			}
+		}
+	}, {
+		"path": "pages/tabbar/study/study",
+		"style": {
+			"enablePullDownRefresh": false
+		}
+
+	}, {
+		"path": "pages/tabbar/home/home",
+		"style": {
+			"enablePullDownRefresh": false,
+			"navigationBarTextStyle": "white",
+			"navigationBarBackgroundColor": "#00bfff",
+			"app-plus": {
+				"titleNView": {
+					"titleText": "我的",
+					"titleAlign": "left",
+					"buttons": [{
+						"type": "menu"
+					}]
+				}
+			}
+		}
+	}, {
+		"path": "pages/login/login",
+		"style": {
+			"enablePullDownRefresh": false,
+			"app-plus": {
+				"titleNView": false
+			}
+		}
+	}, {
+		"path": "pages/login/agreement/agreement",
+		"style": {
+			"enablePullDownRefresh": false,
+			"app-plus": {
+				"titleNView": false
+			}
+		}
+
+	}, {
+		"path": "pages/bind-phone/bind-phone",
+		"style": {
+			"enablePullDownRefresh": false,
+			"app-plus": {
+				"titleNView": false
+			}
+		}
+	}, {
+		"path": "pages/forget-pwd/forget-pwd",
+		"style": {
+			"enablePullDownRefresh": false,
+			"app-plus": {
+				"titleNView": false
+			}
+		}
+	}, {
+		"path": "pages/setting/setting",
+		"style": {
+			"navigationBarTitleText": "我的设置",
+			"enablePullDownRefresh": false
+		}
+
+	}, {
+		"path": "pages/my-coupon/my-coupon",
+		"style": {
+			"enablePullDownRefresh": false
+		}
+
+	}, {
+		"path": "pages/user-safe/user-safe",
+		"style": {
+			"enablePullDownRefresh": false
+		}
+
+	}, {
+		"path": "pages/user-info/user-info",
+		"style": {
+			"navigationBarTitleText": "编辑资料",
+			"enablePullDownRefresh": false
+		}
+
+	}],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "在线教育",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF",
+		"app-plus": {
+			"background": "#FFFFFF"
+		}
+	},
+	"tabBar": {
+		"color": "#BBBAC7",
+		"selectedColor": "#2C2C2C",
+		"borderStyle": "black",
+		"list": [{
+				"iconPath": "static/tabbar/index.png",
+				"selectedIconPath": "static/tabbar/index_selected.png",
+				"pagePath": "pages/tabbar/index/index",
+				"text": "首页"
+			},
+			{
+				"iconPath": "static/tabbar/study.png",
+				"selectedIconPath": "static/tabbar/study_selected.png",
+				"pagePath": "pages/tabbar/study/study",
+				"text": "学习"
+			},
+			{
+				"iconPath": "static/tabbar/home.png",
+				"selectedIconPath": "static/tabbar/home_selected.png",
+				"pagePath": "pages/tabbar/home/home",
+				"text": "我的"
+			}
+		]
+	}
+}
