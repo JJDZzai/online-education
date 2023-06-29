@@ -32,6 +32,11 @@
 	// 	padding: 10px;
 	// }
 	
+	
+uni-modal .uni-modal__btn{
+	color: red;
+}
+	
 	// 公共 css
 	@import '@/common/free.css';
 	

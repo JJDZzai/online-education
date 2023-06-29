@@ -22,7 +22,7 @@
 				<icon-nav v-else-if="temp.type == 'icons'" :iconList="temp.data"></icon-nav>
 
 				<!-- 优惠券 -->
-				<coupon-list v-else-if="temp.type == 'coupon'"></coupon-list>
+				<coupon-list ref="couponRef" v-else-if="temp.type == 'coupon'"></coupon-list>
 
 				<view v-else-if="temp.type == 'promotion'">
 					<!-- 拼团 -->
@@ -77,6 +77,13 @@
 		created() {
 			this.loading = true
 			this.getData()
+
+			uni.$on('userLogin', this.refreshCoupon)
+			uni.$on('userLogout', this.refreshCoupon)
+		},
+		destroyed() {
+			uni.$off('userLogin', this.refreshCoupon)
+			uni.$off('userLogout', this.refreshCoupon)
 		},
 		methods: {
 			getData() {
@@ -86,6 +93,11 @@
 					this.loading = false
 					uni.stopPullDownRefresh()
 				})
+			},
+			refreshCoupon() {
+				if (this.$refs.couponRef && this.$refs.couponRef[0]) {
+					this.$refs.couponRef[0].getData()
+				}
 			}
 		}
 	}

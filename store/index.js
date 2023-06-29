@@ -7,8 +7,8 @@ import $api from '@/api/api.js'
 
 export default new Vuex.Store({
 	state: {
-		user: '',
-		token: '',
+		user: null,
+		token: null,
 	},
 	actions: {
 		// 防止刷新丢失数据
@@ -26,18 +26,18 @@ export default new Vuex.Store({
 		}, data) {
 			return new Promise((resolve, reject) => {
 				$api.loginAccount(data).then(user => {
-					commit('LOGIN',user)
+					commit('LOGIN', user)
 					resolve(user)
 				}).catch((err) => {
 					reject(err)
 				})
 			})
 		},
-		logout({commit}){
-			return new Promise((resolve, reject)=>{
-				$api.logout()
-				commit('LOGOUT')
-			})
+		async logout({
+			commit
+		}) {
+			await $api.logout()
+			commit('LOGOUT')
 		}
 	},
 	mutations: {
@@ -47,12 +47,14 @@ export default new Vuex.Store({
 
 			// 防止刷新丢失数据
 			uni.setStorageSync('user', JSON.stringify(user))
+			uni.$emit('userLogin', user)
 		},
 
 		LOGOUT(state) {
-			state.user = ''
-			state.token = ''
+			state.user = null
+			state.token = null
 			uni.removeStorageSync('user')
+			uni.$emit('userLogout')
 		},
 
 		// 防止绑定手机号丢失

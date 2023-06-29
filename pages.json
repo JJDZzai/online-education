@@ -40,10 +40,8 @@
 	}, {
 		"path": "pages/login/agreement/agreement",
 		"style": {
-			"enablePullDownRefresh": false,
-			"app-plus": {
-				"titleNView": false
-			}
+			"navigationBarTitleText": "用户协议",
+			"enablePullDownRefresh": false
 		}
 
 	}, {
@@ -72,7 +70,8 @@
 	}, {
 		"path": "pages/my-coupon/my-coupon",
 		"style": {
-			"enablePullDownRefresh": false
+			"navigationBarTitleText": "我的优惠券",
+			"enablePullDownRefresh": true
 		}
 
 	}, {
@@ -86,6 +85,13 @@
 		"style": {
 			"navigationBarTitleText": "编辑资料",
 			"enablePullDownRefresh": false
+		}
+
+	}, {
+		"path": "pages/order-list/order-list",
+		"style": {
+			"navigationBarTitleText": "我的订单",
+			"enablePullDownRefresh": true
 		}
 
 	}],

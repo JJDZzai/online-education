@@ -18,12 +18,24 @@
 
 			<view class="login-section-form">
 				<uni-icons type="locked-filled" size="20"></uni-icons>
-				<input class="font" type="text" v-model="form.password" placeholder="请输入密码">
+				<input class="font" type="text" v-if="showPwd" v-model="form.password" placeholder="请输入密码">
+				<input class="font" type="password" v-else v-model="form.password" placeholder="请输入密码">
+
+				<view class="locked-filled">
+					<uni-icons v-show="showPwd" type="eye-filled" size="20" @click="changeShowpwd"></uni-icons>
+					<uni-icons v-show="!showPwd" type="eye-slash" size="20" @click="changeShowpwd"></uni-icons>
+				</view>
 			</view>
 
 			<view class="login-section-form" v-if="type == 'reg'">
 				<uni-icons type="locked-filled" size="20"></uni-icons>
-				<input class="font" type="text" v-model="form.repassword" placeholder="请输入确认密码">
+				<input class="font" type="text" v-if="showRePwd" v-model="form.repassword" placeholder="请输入确认密码">
+				<input class="font" type="password" v-else v-model="form.repassword" placeholder="请输入确认密码">
+
+				<view class="locked-filled">
+					<uni-icons v-show="showRePwd" type="eye-filled" size="20" @click="changeReShowpwd"></uni-icons>
+					<uni-icons v-show="!showRePwd" type="eye-slash" size="20" @click="changeReShowpwd"></uni-icons>
+				</view>
 			</view>
 
 			<button class="font text-light bg-main" hover-class="bg-main-hover"
@@ -56,6 +68,8 @@
 				// 勾选协议默认值
 				confirm: false,
 				type: 'login',
+				showPwd: false,
+				showRePwd: false,
 				form: {
 					username: "",
 					password: "",
@@ -64,6 +78,20 @@
 			}
 		},
 		methods: {
+			changeShowpwd() {
+				if (this.showPwd) {
+					this.showPwd = false
+				} else {
+					this.showPwd = true
+				}
+			},
+			changeReShowpwd() {
+				if (this.showRePwd) {
+					this.showRePwd = false
+				} else {
+					this.showRePwd = true
+				}
+			},
 			handleBack() {
 				uni.navigateBack({
 					delta: 1
@@ -135,5 +163,11 @@
 </script>
 
 <style>
-
+	.locked-filled {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 100rpx;
+		height: 100rpx;
+	}
 </style>

@@ -5,7 +5,7 @@
 		<view class="home-main position-relative">
 			<!-- 未登录时的状态 -->
 			<view class="flex p-3" v-if="!user">
-				<image class="home-image bg-light rounded-circle" src="/static/uni.png" mode="widthFix"></image>
+				<image class="home-image bg-light rounded-circle" src=""></image>
 
 				<view class="flex flex-column justify-center flex-1 text-white ml-3"
 					@click="navigateTo('../../login/login')">
@@ -31,13 +31,13 @@
 			<view class="px-3">
 				<uni-list :border="false">
 					<uni-list-item title="我的优惠券" show-arrow clickable @click="authJump('../../my-coupon/my-coupon')">
-						<text slot="header" class="iconfont icon-9 mr-2"></text>
+						<text slot="header" class="iconfont icon-9 home-icon mr-2"></text>
 					</uni-list-item>
 					<uni-list-item title="常见问题" show-arrow clickable>
-						<text slot="header" class="iconfont icon-help mr-2"></text>
+						<text slot="header" class="iconfont icon-help home-icon mr-2"></text>
 					</uni-list-item>
 					<uni-list-item title="设置" show-arrow clickable @click="navigateTo('../../setting/setting')">
-						<text slot="header" class="iconfont icon-set mr-2"></text>
+						<text slot="header" class="iconfont icon-set home-icon mr-2"></text>
 					</uni-list-item>
 				</uni-list>
 			</view>
@@ -56,7 +56,8 @@
 			return {
 				icons: [{
 					icon: "icon-OrderHistory",
-					name: "订单"
+					name: "订单",
+					path: "/pages/order-list/order-list"
 				}, {
 					icon: "icon-pinglun2",
 					name: "消息"
@@ -98,10 +99,9 @@
 			height: 120rpx;
 		}
 
-		& .iconfont {
+		& .home-icon {
 			font-size: 40rpx;
 			color: #00bfff;
-			margin-bottom: 10rpx;
 		}
 	}
 </style>

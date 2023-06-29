@@ -59,9 +59,29 @@ export default {
 			onProgress
 		})
 	},
-	
+
 	// 修改资料
-	updateInfo(data){
+	updateInfo(data) {
 		return request.post("/mobile/update_info", data)
-	}
+	},
+
+	// 我的订单列表
+	getOrderList(params) {
+		return request.get("/mobile/order/list", params)
+	},
+
+	// 获取可用优惠券列表
+	getCoupon() {
+		return request.get("/mobile/coupon")
+	},
+
+	// 领取优惠券 
+	receiveCoupon(data) {
+		return request.post("/mobile/user_coupon/receive", data)
+	},
+	
+	// 我的优惠券列表
+	getCouponList(data) {
+		return request.get("/mobile/user_coupon", data)
+	},
 }

@@ -48,14 +48,12 @@
 						if (res.cancel) {
 							return
 						}
+						// this.$api
 						this.$store.dispatch('logout').then(() => {
 							uni.navigateBack({
 								delta: 1
 							})
 						})
-						// this.$api.logout()
-						// this.$store.commit('LOGOUT')
-
 					}
 				});
 			},

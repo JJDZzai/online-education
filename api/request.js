@@ -1,3 +1,6 @@
+import {
+	log
+} from 'util'
 import store from '../store/index.js'
 
 export default {
@@ -35,6 +38,18 @@ export default {
 						title: msg,
 						icon: 'none'
 					});
+
+					if (res.data.data == 'Token 令牌不合法，请重新登录') {
+						// 这里调用退出登录方法是为了在 token 过期时清除本地存储，退出重新登录
+						store.commit('LOGOUT')
+
+						setTimeout(() => {
+							uni.navigateTo({
+								url: '/pages/login/login'
+							})
+						}, 350)
+					}
+					// console.log(res);
 					return reject(msg)
 				}
 				resolve(res.data.data)
