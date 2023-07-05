@@ -10,6 +10,7 @@
 	}, {
 		"path": "pages/tabbar/study/study",
 		"style": {
+			"navigationBarTitleText": "学习进度",
 			"enablePullDownRefresh": false
 		}
 
@@ -94,7 +95,65 @@
 			"enablePullDownRefresh": true
 		}
 
-	}],
+	}, {
+		"path": "pages/search/search",
+		"style": {
+			"app-plus": {
+				"titleNView": {
+					"searchInput": {
+						"align": "left",
+						"autoFocus": true,
+						"backgroundColor": "#F6F9FB",
+						"borderRadius": "50px",
+						"placeholder": "请输入搜索关键词"
+					},
+					"buttons": [{
+						"text": "搜索",
+						"fontSize": "15px"
+					}]
+				}
+			}
+		}
+
+	}, {
+		"path": "pages/search-result/search-result",
+		"style": {
+			"app-plus": {
+				"titleNView": {
+					"searchInput": {
+						"align": "left",
+						"backgroundColor": "#F6F9FB",
+						"borderRadius": "50px",
+						"placeholder": "请输入搜索关键词",
+						"disabled": true
+					}
+				}
+			}
+		}
+	}, {
+		"path": "pages/course-detail/course-detail",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+
+	}, {
+		"path": "pages/column/column",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+
+	}    ,{
+            "path" : "pages/exam-list/exam-list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "考试列表",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "在线教育",

@@ -1,46 +1,22 @@
 <template>
 	<view class="flex flex-column" style="height: 100%;">
-		<icons-card :icons="icons" v-if="token"></icons-card>
+		<tab :current="current" :tabs="tabs" @change="handleChange"></tab>
 
-		<tab :current="current" :tabs="tabs" v-if="token" @change="handleChange"></tab>
-
-		<swiper :current="current" :duration="200" class="flex-1 px-2" v-if="token" @change="swiperChange">
+		<swiper :current="current" :duration="200" class="flex-1 px-2" @change="swiperChange">
 			<swiper-item class="flex" v-for="(t, index) in tabs" :key="index">
 				<scroll-view scroll-y="true" class="flex-1" @scrolltolower="handleLoadMore(t)">
-					<course-list colType="one" v-for="(item, index) in t.list" :key="index" :item="item">
-						<text class="font-sm text-light-muted my-1" slot="desc">学习进度</text>
-						<view class="flex flex-1 align-end" slot="footer">
-							<text class="font-sm text-danger mr-1" v-if="index == 0">最近学习</text>
-							<text class="font-sm text-light-muted">已学习 {{ item.progress }}%</text>
-						</view>
-					</course-list>
+					<course-list colType="one" v-for="(item, index) in t.list" :key="index" :item="item"></course-list>
 					<uni-load-more :status="t.loadStatus"></uni-load-more>
 				</scroll-view>
 			</swiper-item>
 		</swiper>
-
-		<no-login v-if="!token"></no-login>
 	</view>
 </template>
 
 <script>
-	import {
-		mapState
-	} from 'vuex'
-
 	export default {
 		data() {
 			return {
-				icons: [{
-					icon: "icon-OrderHistory",
-					name: "帖子",
-				}, {
-					icon: "icon-pinglun2",
-					name: "考试"
-				}, {
-					icon: "icon-shoucang1",
-					name: "电子书"
-				}],
 				current: 0,
 				tabs: [{
 					name: "课程",
@@ -55,21 +31,20 @@
 					page: 1,
 					type: 'column'
 				}],
+				keyword: ''
 			}
 		},
-		onShow() {
-			if (this.token) {
-				this.tabs.forEach(t => {
-					t.page = 1
-					t.loadStatus = 'more'
-				})
-				this.getData()
-			}
+		onLoad(e) {
+			this.keyword = e.keyword
+			this.getData()
 		},
-		computed: {
-			...mapState({
-				token: state => state.token
+		onNavigationBarSearchInputClicked() {
+			uni.navigateBack({
+				delta: 1
 			})
+		},
+		created() {
+			this.getData()
 		},
 		methods: {
 			handleChange(index) {
@@ -96,7 +71,8 @@
 
 				let tab = this.tabs[this.current]
 
-				this.$api.getUserhistory({
+				this.$api.getSearchResult({
+					keyword: this.keyword,
 					page: tab.page,
 					type: tab.type
 				}).then(res => {

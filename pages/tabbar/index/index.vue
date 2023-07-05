@@ -41,8 +41,8 @@
 						</view>
 
 						<view>
-							<cource-list :colType="temp.listType" v-for="(item, index) in temp.data" :key="index"
-								:item="item"></cource-list>
+							<course-list :colType="temp.listType" v-for="(item, index) in temp.data" :key="index"
+								:item="item"></course-list>
 						</view>
 					</view>
 				</view>

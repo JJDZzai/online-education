@@ -1,0 +1,160 @@
+<template>
+	<view>
+		<view class="position-relative">
+			<image class="detail-image bg-light" :src="detail.cover" mode="widthFix"></image>
+			<view class="detail-text text-white font-sm p-1">专栏</view>
+		</view>
+
+		<tab :current="current" :tabs="tabs" @change="handleChange"></tab>
+
+		<!-- 简介部分 -->
+		<view class="animate__animated animate__fadeIn animate__faster" v-if="current == 0">
+			<view class="flex flex-column p-3" v-if="firstLoading">
+				<text>{{ detail.title }}</text>
+				<text class="text-light-muted font-sm mt-1 mb-2">{{ detail.sub_count }}人学过</text>
+				<view v-if="!detail.isbuy">
+					<text class="text-danger font mr-1">￥{{ detail.price }}</text>
+					<text class="text-light-muted font-sm text-through">￥{{ detail.t_price }}</text>
+				</view>
+			</view>
+
+			<!-- 价格骨架屏优化 -->
+			<view class="flex flex-column p-3" v-else>
+				<skeleton width="480rpx" height="25rpx" oClass="mr-1"></skeleton>
+				<skeleton width="100rpx" height="20rpx" oClass="mt-1 mb-2"></skeleton>
+				<view class="flex">
+					<skeleton width="100rpx" height="25rpx" oClass="font mr-1"></skeleton>
+					<view class="flex align-end">
+						<skeleton width="100rpx" height="20rpx" oClass="font-sm"></skeleton>
+					</view>
+				</view>
+			</view>
+
+			<view class="divider"></view>
+
+			<uni-card title="专栏简介" is-full :border="false">
+				<mp-html :content="detail.content">
+					<view class="flex justify-center align-center text-light-muted">加载中...</view>
+				</mp-html>
+			</uni-card>
+		</view>
+
+		<!-- 目录部分 -->
+		<view class="animate__animated animate__fadeIn animate__faster" v-else>
+			<view class="p-3">
+				<view class="border rounded bg-light text-muted p-2">共 {{ list.length }} 节</view>
+			</view>
+
+			<menu-item v-for="(item,index) in list" :key="index" :title="item.title" :index="index"
+				@open="openDirectory(item)">
+				<view class="flex">
+					<text
+						class="border border-danger rounded text-danger font-sm px-1 mt-1 mr-1">{{ item.type | formatType }}</text>
+					<text class="border border-danger rounded text-danger font-sm px-1 mt-1"
+						v-if="item.price == 0">免费试看</text>
+				</view>
+			</menu-item>
+		</view>
+
+		<template v-if="!detail.isbuy && firstLoading">
+			<view style="height: 75px;"></view>
+			<view class="fixed-bottom bg-white p-2 border-top">
+				<main-btn>立即订购￥{{ detail.price }}</main-btn>
+			</view>
+		</template>
+	</view>
+</template>
+
+<script>
+	export default {
+		filters: {
+			formatType(value) {
+				let type = {
+					media: '图文',
+					audio: '视频',
+					video: '视频'
+				}
+				return type[value]
+			}
+		},
+		data() {
+			return {
+				detail: {},
+				list: [],
+				firstLoading: false, // 按钮加载
+				current: 0,
+				tabs: [{
+					name: "简介",
+				}, {
+					name: "目录",
+				}],
+			}
+		},
+		onLoad(e) {
+			this.detail.id = e.id
+			// 判断传递过来 id 是否有值
+			if (!this.detail.id) {
+				this.$toast('非法参数')
+				setTimeout(() => {
+					uni.navigateBack({
+						delta: 1
+					})
+				}, 700)
+			}
+		},
+		onShow() {
+			this.getData()
+		},
+		methods: {
+			getData() {
+				this.$api.getColumnDetail({
+					id: this.detail.id
+				}).then(res => {
+					this.detail = res
+					this.list = res.column_courses
+					uni.setNavigationBarTitle({
+						title: this.detail.title
+					})
+				}).catch((err) => {
+					if (err == '该记录不存在') {
+						setTimeout(() => {
+							return uni.navigateBack({
+								delta: 1
+							})
+						}, 700)
+					}
+				}).finally(() => {
+					this.firstLoading = true
+				})
+			},
+			handleChange(index) {
+				this.current = index
+			},
+			openDirectory(item) {
+				if (item.price != 0 && !this.detail.isbuy) {
+					return this.$toast('请先购买该专栏')
+				}
+				this.authJump(`/pages/course-detail/course-detail?id=${item.id}&column_id=${this.detail.id}`)
+			}
+		}
+	}
+</script>
+
+<style>
+	.detail-image {
+		width: 100%;
+		height: 420rpx;
+	}
+
+	.detail-video {
+		width: 100%;
+		height: 420rpx;
+	}
+
+	.detail-text {
+		position: absolute;
+		right: 20rpx;
+		bottom: 30rpx;
+		background-color: rgba(0, 0, 0, 0.4);
+	}
+</style>

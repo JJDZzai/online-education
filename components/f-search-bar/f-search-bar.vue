@@ -1,6 +1,6 @@
 <template>
 	<view class="p-2">
-		<view class="f-search-bar flex justify-center align-center py-2 rounded">
+		<view class="f-search-bar flex justify-center align-center py-2 rounded" @click="handleSearch">
 			<uni-icons type="search" size="20" color="#928E8A"></uni-icons>
 			<text class="ml-2 font">{{ placeholder }}</text>
 		</view>
@@ -11,15 +11,20 @@
 	export default {
 		name: "f-search-bar",
 		props: {
-			placeholder:{
-				type:String,
-				default:''
+			placeholder: {
+				type: String,
+				default: ''
 			}
 		},
 		data() {
 			return {
 
 			};
+		},
+		methods: {
+			handleSearch() {
+				this.navigateTo('/pages/search/search')
+			}
 		}
 	}
 </script>

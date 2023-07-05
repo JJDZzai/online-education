@@ -1,15 +1,19 @@
 <template>
-	<view class="scroll-row-item mr-2 mt-3" :class="'cource-' + this.colType">
+	<view class="scroll-row-item mr-2 mt-3" :class="'cource-' + this.colType" @click="handleDetail">
 		<view class="view-first position-relative">
 			<image class="cource-image" :src="item.cover" mode="widthFix"></image>
-			<text class="cource-text text-white font-sm mb-1">{{ item.type | formatType }}</text>
+			<text class="cource-text text-white font-sm mb-1" v-if="item.type">{{ item.type | formatType }}</text>
 		</view>
 		<view class="view-second flex flex-column flex-shrink">
 			<text class="font-md text-ellipsis mt-1">{{ item.title }}</text>
-			<text class="font-sm text-light-muted my-1" v-if="item.try" v-html="item.try"></text>
+			<slot name="desc">
+				<text class="font-sm text-light-muted my-1" v-if="item.try" v-html="item.try"></text>
+			</slot>
 			<view class="flex flex-1 align-end">
-				<text class="font-md text-danger">￥{{item.price}}</text>
-				<text class="font-sm text-light-muted">￥{{ item.t_price }}</text>
+				<slot name="footer">
+					<text class="font-md text-danger">￥{{item.price}}</text>
+					<text class="font-sm text-light-muted">￥{{ item.t_price }}</text>
+				</slot>
 			</view>
 		</view>
 	</view>
@@ -23,7 +27,7 @@
 		column: "专栏"
 	}
 	export default {
-		name: "cource-list",
+		name: "course-list",
 		props: {
 			item: {
 				type: Object,
@@ -43,6 +47,15 @@
 			return {
 
 			};
+		},
+		methods: {
+			handleDetail() {
+				let url = '/pages/course-detail/course-detail?id=' + this.item.id
+				if (!this.item.type) {
+					url = '/pages/column/column?id=' + this.item.id
+				}
+				this.navigateTo(url)
+			}
 		}
 	}
 </script>
@@ -50,7 +63,7 @@
 <style>
 	.cource-one {
 		display: flex !important;
-		
+
 		& .view-first {
 			flex-shrink: 1;
 			margin-right: 20rpx;

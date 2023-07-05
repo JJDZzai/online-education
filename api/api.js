@@ -79,9 +79,35 @@ export default {
 	receiveCoupon(data) {
 		return request.post("/mobile/user_coupon/receive", data)
 	},
-	
+
 	// 我的优惠券列表
-	getCouponList(data) {
-		return request.get("/mobile/user_coupon", data)
+	getCouponList(params) {
+		return request.get("/mobile/user_coupon", params)
+	},
+
+	// 搜索课程/专栏
+	getSearchResult(params) {
+		return request.get("/mobile/search", params)
+	},
+
+	// 查看课程详情
+	getCourseDetail(params) {
+		return request.get("/mobile/course/read", params)
+	},
+
+	// 查看专栏详情
+	getColumnDetail(params) {
+		return request.get("/mobile/column/read", params)
+	},
+
+	// 我的学习记录列表
+	getUserhistory(params) {
+		return request.get("/mobile/user_history/list", params)
+	},
+
+
+	// 更新学习记录
+	updateUserhistory(data) {
+		return request.post("/mobile/user_history/update", data)
 	},
 }

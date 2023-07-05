@@ -8,7 +8,7 @@
 			<text class="font-md font-weight-bold">{{ type == 'group' ? '拼团' : '秒杀' }}</text>
 
 			<scroll-view scroll-x="true" class="scroll-row">
-				<cource-list v-for="(item, index) in groupList" :key="index" :item="item"></cource-list>
+				<course-list v-for="(item, index) in groupList" :key="index" :item="item"></course-list>
 			</scroll-view>
 		</view>
 	</view>

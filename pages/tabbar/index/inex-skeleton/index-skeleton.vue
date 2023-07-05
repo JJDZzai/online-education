@@ -2,7 +2,7 @@
 	<view>
 		<!-- 搜索 -->
 		<view class="p-2">
-			<skeleton width="710rpx" height="75rpx" oClass=" rounded"></skeleton>
+			<skeleton width="710rpx" height="75rpx" oClass="rounded"></skeleton>
 		</view>
 
 		<!-- 轮播图 -->
