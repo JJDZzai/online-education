@@ -21,6 +21,16 @@ Vue.prototype.$toast = function(msg) {
 	})
 }
 
+// 页面加载提示
+Vue.prototype.$load = function(msg) {
+	uni.showLoading({
+		title: msg
+	})
+}
+// 页面加载结束提示
+Vue.prototype.$hide = function(){
+	uni.hideLoading()
+}
 // 路由跳转
 Vue.prototype.navigateTo = function(url) {
 	uni.navigateTo({

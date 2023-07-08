@@ -110,4 +110,19 @@ export default {
 	updateUserhistory(data) {
 		return request.post("/mobile/user_history/update", data)
 	},
+	
+	// 考场列表
+	getTestpaperList(params) {
+		return request.get("/mobile/testpaper/list", params)
+	},
+	
+	// 开始考试
+	readTestpaper(params) {
+		return request.get("/mobile/testpaper/read", params)
+	},
+	
+	// 考试交卷
+	submitTest(data) {
+		return request.post("/mobile/user_test/save", data)
+	},
 }

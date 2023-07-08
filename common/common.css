@@ -20,6 +20,13 @@
 	color: #1B85FF;
 }
 
+/* 边框主色 */
+.border-main {
+	border-color: #1B85FF;
+	border-width: 2rpx;
+}
+
+
 /* 分割线颜色 */
 .divider {
 	height: 15rpx;
