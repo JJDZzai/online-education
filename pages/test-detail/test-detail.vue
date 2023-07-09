@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 考试时间 -->
-		<test-timer @end="end" :expire="expire"></test-timer>
+		<test-timer @end="end" :expire="expire" v-if="expire > 0"></test-timer>
 
 		<!-- 考试题型，主体部分 -->
 		<view class="mt-2">
@@ -65,7 +65,7 @@
 				total: 0,
 				list: [],
 				id: 0,
-				expire: 60,
+				expire: 0,
 				title: '',
 				user_test_id: 0,
 				// 左上角返回按钮返回
@@ -142,15 +142,6 @@
 					this.total = this.list.length
 					if (this.total > 0) {
 						this.current = 1
-					}
-				}).catch((err) => {
-					if (err == '该试卷还没有题目') {
-						// setTimeout(() => {
-						// 	uni.navigateBack({
-						// 		delta: 1
-						// 	});
-						// }, 700)
-
 					}
 				}).finally(() => {
 					this.$hide()

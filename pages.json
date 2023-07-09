@@ -162,6 +162,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/my-test/my-test",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的考试记录",
+                "enablePullDownRefresh": true
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

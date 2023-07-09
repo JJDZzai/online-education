@@ -1,6 +1,5 @@
 <template>
 	<view>
-	
 		<view class="test-timer">
 			考试时间：{{ time_out | formatTime }}
 		</view>
@@ -15,7 +14,7 @@
 		props: {
 			expire: {
 				type: Number,
-				default: 120
+				default: 1
 			}
 		},
 		filters: {

@@ -36,7 +36,8 @@
 					name: "帖子",
 				}, {
 					icon: "icon-pinglun2",
-					name: "考试"
+					name: "考试",
+					path: '/pages/my-test/my-test'
 				}, {
 					icon: "icon-shoucang1",
 					name: "电子书"

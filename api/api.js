@@ -125,4 +125,9 @@ export default {
 	submitTest(data) {
 		return request.post("/mobile/user_test/save", data)
 	},
+	
+	// 我的考试记录
+	getUserTestList(params) {
+		return request.get("/mobile/user_test/list", params)
+	},
 }
