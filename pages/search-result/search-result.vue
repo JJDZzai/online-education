@@ -43,9 +43,6 @@
 				delta: 1
 			})
 		},
-		created() {
-			this.getData()
-		},
 		methods: {
 			handleChange(index) {
 				this.current = index

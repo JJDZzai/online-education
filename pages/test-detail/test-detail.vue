@@ -114,7 +114,7 @@
 		},
 		computed: {
 			topic() {
-				return this.list[this.current - 1] || {}
+				return this.list[this.current] || {}
 			},
 			// 判断没有填的题目
 			notFilled() {

@@ -144,30 +144,72 @@
 			"enablePullDownRefresh": false
 		}
 
+	}, {
+		"path": "pages/test-list/test-list",
+		"style": {
+			"navigationBarTitleText": "考试列表",
+			"enablePullDownRefresh": true
+		}
+
+	}, {
+		"path": "pages/test-detail/test-detail",
+		"style": {
+			"navigationBarTitleText": "开始考试",
+			"enablePullDownRefresh": false
+		}
+
+	}, {
+		"path": "pages/my-test/my-test",
+		"style": {
+			"navigationBarTitleText": "我的考试记录",
+			"enablePullDownRefresh": true
+		}
+
+	}, {
+		"path": "pages/bbs/bbs",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": true,
+			"app-plus": {
+				"titleNView": {
+					"searchInput": {
+						"align": "center",
+						"backgroundColor": "#F5F5F4",
+						"placeholder": "输入搜索帖子",
+						"placeholderColor": "#999999",
+						"borderRadius": "50px",
+						"disabled": false
+					},
+					"buttons": [{
+						"fontSrc": "/static/iconfont.ttf",
+						"text": "\ue682",
+						"fontSize": "20px",
+						"float": "right"
+					}]
+				}
+			}
+		}
+	}, {
+		"path": "pages/add-post/add-post",
+		"style": {
+			"navigationBarTitleText": "发布帖子",
+			"enablePullDownRefresh": false,
+			"app-plus": {
+				"titleNView": {
+					"buttons": [{
+						"text": "发布",
+						"fontSize": "14px"
+					}]
+				}
+			}
+		}
+
 	}    ,{
-            "path" : "pages/test-list/test-list",
+            "path" : "pages/post-detail/post-detail",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "考试列表",
-                "enablePullDownRefresh": true
-            }
-            
-        }
-        ,{
-            "path" : "pages/test-detail/test-detail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "开始考试",
+                "navigationBarTitleText": "帖子详情",
                 "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/my-test/my-test",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "我的考试记录",
-                "enablePullDownRefresh": true
             }
             
         }

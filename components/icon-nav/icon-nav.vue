@@ -28,6 +28,9 @@
 					case 'test':
 						this.navigateTo('/pages/test-list/test-list')
 						break;
+					case 'bbs':
+						this.navigateTo('/pages/bbs/bbs')
+						break;
 					default:
 						break;
 				}

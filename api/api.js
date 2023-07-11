@@ -110,24 +110,64 @@ export default {
 	updateUserhistory(data) {
 		return request.post("/mobile/user_history/update", data)
 	},
-	
+
 	// 考场列表
 	getTestpaperList(params) {
 		return request.get("/mobile/testpaper/list", params)
 	},
-	
+
 	// 开始考试
 	readTestpaper(params) {
 		return request.get("/mobile/testpaper/read", params)
 	},
-	
+
 	// 考试交卷
 	submitTest(data) {
 		return request.post("/mobile/user_test/save", data)
 	},
-	
+
 	// 我的考试记录
 	getUserTestList(params) {
 		return request.get("/mobile/user_test/list", params)
+	},
+
+	// 社区列表
+	getbbsList(params) {
+		return request.get("/mobile/bbs", params)
+	},
+
+	// 帖子列表
+	getPostList(params) {
+		return request.get("/mobile/post/list", params)
+	},
+
+	// 点赞帖子
+	postSupport(data) {
+		return request.post("/mobile/post/support", data)
+	},
+
+	// 取消点赞帖子
+	postUnsupport(data) {
+		return request.post("/mobile/post/unsupport", data)
+	},
+
+	// 发布帖子
+	postSave(data) {
+		return request.post("/mobile/post/save", data)
+	},
+
+	// 查看帖子
+	readPost(params) {
+		return request.get("/mobile/post/read", params)
+	},
+
+	// 查看帖子评论列表
+	readPostComment(params) {
+		return request.get("/mobile/post_comment", params)
+	},
+	
+	// 评论帖子
+	replyPost(data) {
+		return request.post("/mobile/post/reply", data)
 	},
 }

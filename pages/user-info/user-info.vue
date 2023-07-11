@@ -95,9 +95,4 @@
 		height: 80rpx;
 		border-radius: 100%;
 	}
-
-	.uni-list-item__content {
-		display: flex !important;
-		justify-content: center !important;
-	}
 </style>

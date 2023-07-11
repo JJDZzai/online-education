@@ -22,7 +22,7 @@
 				</view>
 				<view class="uni-card__header-extra" @click="onClick('extra')">
 					<slot name="extra">
-						<text class="uni-card__header-extra-text">{{ extra }}</text>
+						<text class="uni-card__header-extra-text" @click="$emit('click-extra')">{{ extra }}</text>
 					</slot>
 				</view>
 			</view>
