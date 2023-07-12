@@ -34,6 +34,7 @@
 				icons: [{
 					icon: "icon-OrderHistory",
 					name: "帖子",
+					path: '/pages/my-post/my-post'
 				}, {
 					icon: "icon-pinglun2",
 					name: "考试",

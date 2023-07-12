@@ -45,6 +45,9 @@
 						<text class="iconfont icon-dianzan2" style="font-size: 20px;"></text>
 						<text class="ml-1">{{ item.support_count == 0 ? '点赞' : item.support_count }}</text>
 					</view>
+					<view class="ml-3" v-if="showDel">
+						<text class="text-danger font" @click="deletePost">删除</text>
+					</view>
 				</view>
 				<view class="text-light-muted font">{{ item.created_time }}</view>
 			</view>
@@ -65,6 +68,10 @@
 			iscontent: {
 				type: Boolean,
 				default: false
+			},
+			showDel: {
+				type: Boolean,
+				default: false
 			}
 		},
 		data() {
@@ -75,6 +82,9 @@
 		methods: {
 			open() {
 				this.navigateTo('/pages/post-detail/post-detail?id=' + this.item.id)
+			},
+			deletePost() {
+				this.$emit('delete',this.item.id)
 			}
 		}
 	}

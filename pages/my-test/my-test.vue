@@ -1,11 +1,13 @@
 <template>
 	<view>
 		<view v-for="(item, index) in list" :key="index">
-			<uni-card is-full :title="item.testpaper.title" :extra="item.answer_status ? '考试完成' : '考试中'" :is-shadow="false" :border="false">
+			<uni-card is-full :title="item.testpaper.title" :extra="item.answer_status ? '考试完成' : '考试中'"
+				:is-shadow="false" :border="false">
 				<view class="flex my-2">
 					<text class="flex-1">题目总数：{{ item.testpaper.question_count }}</text>
 					<text class="flex-1">
-						最终得分：<text :class="item.read_status ? '' : 'text-danger'">{{ item.read_status ? item.score : '正在阅卷' }}</text>
+						最终得分：<text
+							:class="item.read_status ? '' : 'text-danger'">{{ item.read_status ? item.score : '正在阅卷' }}</text>
 					</text>
 				</view>
 				<view class="flex justify-start mb-3 ml-2" slot="actions">
@@ -62,22 +64,11 @@
 				}
 				this.page = this.page + 1
 				this.getData()
-			},
-			startTest(id) {
-				uni.showModal({
-					content: '确定要开始考试吗？',
-					success: (res) => {
-						if (res.cancel) {
-							return
-						}
-						this.navigateTo('../test-detail/test-detail?id=' + id)
-					}
-				});
 			}
 		}
 	}
 </script>
 
 <style>
-	
+
 </style>

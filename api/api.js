@@ -170,4 +170,14 @@ export default {
 	replyPost(data) {
 		return request.post("/mobile/post/reply", data)
 	},
+	
+	// 我的帖子列表
+	readMyPost(params) {
+		return request.get("/mobile/mypost", params)
+	},
+	
+	// 删除帖子
+	deletePost(data) {
+		return request.post("/mobile/post/delete", data)
+	},
 }

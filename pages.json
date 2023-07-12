@@ -204,16 +204,21 @@
 			}
 		}
 
-	}    ,{
-            "path" : "pages/post-detail/post-detail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "帖子详情",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	}, {
+		"path": "pages/post-detail/post-detail",
+		"style": {
+			"navigationBarTitleText": "帖子详情",
+			"enablePullDownRefresh": false
+		}
+
+	}, {
+		"path": "pages/my-post/my-post",
+		"style": {
+			"navigationBarTitleText": "帖子记录",
+			"enablePullDownRefresh": true
+		}
+
+	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "在线教育",
