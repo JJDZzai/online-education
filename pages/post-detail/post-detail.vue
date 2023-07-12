@@ -8,7 +8,9 @@
 				<image :src="item.user.avatar" mode="widthFix"></image>
 				<view class="flex-1">
 					<view class="nickname">{{ item.user.name }}</view>
-					<view class="content">{{ item.content }}</view>
+					<view class="content" @click="handlePopup({reply_id:item.id,reply_user:item.user})">
+						{{ item.content }}
+					</view>
 					<view class="date">{{ item.created_time | formatDate }}</view>
 
 					<!-- 回复 -->
@@ -16,15 +18,21 @@
 						<view class="comment-list mb-2" v-for="(com, index) in item.post_comments" :key="index">
 							<image :src="com.user.avatar" mode="widthFix"></image>
 							<view class="flex-1">
-								<view class="nickname">{{ com.user.name }}</view>
-								<view class="content">{{ com.content }}</view>
+								<view class="flex">
+									<view class="nickname">{{ com.user.name }}</view>
+									<!-- @ 主要人 -->
+									<view class="nickname ml-1">@{{ com.reply_user.name }}</view>
+								</view>
+
+								<view class="content" @click="handlePopup({reply_id:item.id,reply_user:com.user})">
+									{{ com.content }}
+								</view>
 								<view class="date">{{ com.created_time | formatDate }}</view>
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-
 
 			<view class="p-2">
 				<button class="flex flex-1 justify-center w-100 mb-3" type="default" size="mini"
@@ -35,7 +43,7 @@
 			<view style="height: 50px;"></view>
 			<view class="flex fixed-bottom bg-white border-top p-2">
 				<view class="flex-1 text-muted bg-light border rounded p-2" style="font-size: 28rpx;"
-					@click="handlePopup">说一句吧</view>
+					@click="handlePopup(false)">说一句吧</view>
 				<view class="flex align-center" :class="detail.issupport ? 'text-danger' : ''" @click="handleSupport">
 					<text class="iconfont icon-dianzan2 ml-2" style="font-size: 40rpx;"></text>
 					<text class="ml-1" style="font-size: 30rpx;">{{ detail.support_count || '点赞' }}</text>
@@ -74,7 +82,11 @@
 				// 评论
 				page: 1,
 				comment: [],
-				loadStatus: 'loading'
+				loadStatus: 'loading',
+				commentForm: {
+					reply_id: 0,
+					reply_user: null
+				}
 			}
 		},
 		onLoad(e) {
@@ -138,16 +150,31 @@
 				})
 			},
 			// 打开 popup 弹窗
-			handlePopup() {
+			handlePopup(val) {
+				if (val) {
+					this.commentForm.reply_id = val.reply_id
+					this.commentForm.reply_user = val.reply_user
+					this.commentForm.reply_user.username = val.reply_user.name
+				} else {
+					this.commentForm = {
+						reply_id: 0,
+						reply_user: null
+					}
+				}
 				this.$refs.popupRef.open()
 			},
 			// 接收 comment-popup 传递过来的事件
 			sendComment(content) {
-				this.$api.replyPost({
+				let data = {
 					post_id: this.detail.id,
 					content,
 					reply_id: 0
-				}).then(res => {
+				}
+				if (this.commentForm.reply_user) {
+					data.reply_id = this.commentForm.reply_id
+					data.reply_user = this.commentForm.reply_user
+				}
+				this.$api.replyPost(data).then(res => {
 					this.$toast('评论成功')
 					this.page = 1
 					this.getList()
