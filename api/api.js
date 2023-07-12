@@ -194,5 +194,10 @@ export default {
 	// 查看电子书章节和内容
 	getBookChapter(params) {
 		return request.get("/mobile/book/detail", params)
-	}
+	},
+	
+	// 公告列表
+	getNoticeList(params) {
+		return request.get("/mobile/notice/list", params)
+	},
 }

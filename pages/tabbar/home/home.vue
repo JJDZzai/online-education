@@ -60,7 +60,8 @@
 					path: "/pages/order-list/order-list"
 				}, {
 					icon: "icon-pinglun2",
-					name: "消息"
+					name: "消息",
+					path:"/pages/mes-list/mes-list"
 				}, {
 					icon: "icon-shoucang1",
 					name: "收藏"

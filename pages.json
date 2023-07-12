@@ -232,16 +232,21 @@
 			"enablePullDownRefresh": false
 		}
 
-	}    ,{
-            "path" : "pages/book-column/book-column",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	}, {
+		"path": "pages/book-column/book-column",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+
+	}, {
+		"path": "pages/mes-list/mes-list",
+		"style": {
+			"navigationBarTitleText": "消息列表",
+			"enablePullDownRefresh": true
+		}
+
+	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "在线教育",
