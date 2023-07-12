@@ -218,7 +218,30 @@
 			"enablePullDownRefresh": true
 		}
 
-	}],
+	}, {
+		"path": "pages/book/book",
+		"style": {
+			"navigationBarTitleText": "电子书列表",
+			"enablePullDownRefresh": true
+		}
+
+	}, {
+		"path": "pages/book-detail/book-detail",
+		"style": {
+			"navigationBarTitleText": "",
+			"enablePullDownRefresh": false
+		}
+
+	}    ,{
+            "path" : "pages/book-column/book-column",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "在线教育",

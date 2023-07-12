@@ -24,6 +24,7 @@
 		},
 		methods: {
 			open(icon) {
+				console.log(icon);
 				switch (icon.module) {
 					case 'test':
 						this.navigateTo('/pages/test-list/test-list')
@@ -31,6 +32,10 @@
 					case 'bbs':
 						this.navigateTo('/pages/bbs/bbs')
 						break;
+
+					case 'book':
+						this.navigateTo('/pages/book/book')
+						break
 					default:
 						break;
 				}

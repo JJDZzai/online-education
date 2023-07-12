@@ -180,4 +180,19 @@ export default {
 	deletePost(data) {
 		return request.post("/mobile/post/delete", data)
 	},
+	
+	// 电子书列表
+	getBookList(params) {
+		return request.get("/mobile/book/list", params)
+	},
+	
+	// 查看电子书详情
+	readBookDetail(params) {
+		return request.get("/mobile/book/read", params)
+	},
+	
+	// 查看电子书章节和内容
+	getBookChapter(params) {
+		return request.get("/mobile/book/detail", params)
+	}
 }

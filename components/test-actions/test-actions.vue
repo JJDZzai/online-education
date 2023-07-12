@@ -4,14 +4,14 @@
 		<view class="test-actions">
 			<view class="iconfont icon-shangyibu" :class="current <= 1 ? 'text-light-muted' : ''" @click="handlePre">
 			</view>
-			<view>
+			<view @click="$emit('open')">
 				<view class="iconfont icon-leimupinleifenleileibie"></view>
 				<view class="flex justify-center align-center font-sm">
 					<text class="text-main">{{ current }}</text>
 					<text>/{{ total }}</text>
 				</view>
 			</view>
-			<view @click="submit">
+			<view @click="submit" v-if="!show">
 				<view class="iconfont icon-tijiao"></view>
 				<text class="font-sm">交卷</text>
 			</view>
@@ -32,6 +32,10 @@
 			total: {
 				type: Number,
 				default: 1
+			},
+			show: {
+				type: Boolean,
+				default: false
 			}
 		},
 		data() {

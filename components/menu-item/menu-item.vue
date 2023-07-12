@@ -1,7 +1,8 @@
 <template>
 	<view class="flex align-center border-bottom p-3" hover-class="bg-light" @click="$emit('open')">
-		<text class="flex-shrink text-muted" style="width: 90rpx;">{{ index + 1 | formatIndex }}</text>
-		<view class="flex flex-column align-start">
+		<text class="flex-shrink text-muted" style="width: 90rpx;"
+			:class="activeColor ? 'text-main' : ''">{{ index + 1 | formatIndex }}</text>
+		<view class="flex flex-column align-start" :class="activeColor ? 'text-main' : ''">
 			<text>{{ title }}</text>
 			<slot></slot>
 		</view>
@@ -30,6 +31,10 @@
 			index: {
 				type: Number,
 				default: 0
+			},
+			activeColor: {
+				type: Boolean,
+				default: false
 			}
 		},
 		data() {

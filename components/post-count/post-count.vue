@@ -10,7 +10,7 @@
 						<text class="text-muted font">{{ item.user.sex }}</text>
 					</view>
 				</view>
-				<view class="ml-auto text-white bg-warning font-sm px-1 py" v-if="item.is_top">精华</view>
+				<view class="ml-auto text-white bg-warning font-sm px-1 py" v-if="!item.is_top">精华</view>
 			</view>
 
 			<!-- 只在社区列表显示 -->
