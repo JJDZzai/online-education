@@ -12,7 +12,8 @@
 			<textarea class="w-100 bg-light font p-2" style="box-sizing: border-box;" placeholder="请填写帖子内容"
 				v-model="item.text" />
 			<view style="margin: 0 -20rpx; margin-top: 20rpx;">
-				<upload-image :list="item.images" @change="handleUploadImage($event, item)"></upload-image>
+				<upload-image ref="uploadRef" :list="item.images"
+					@change="handleUploadImage($event, item)"></upload-image>
 			</view>
 		</uni-card>
 
@@ -30,8 +31,10 @@
 				activeIndex: -1,
 				form: [{
 					text: '第一个帖子',
-					images: []
-				}]
+					images: ['http://demo-mp3.oss-cn-shenzhen.aliyuncs.com/egg-edu-demo/e04bb1b1928b720284d5.jpg']
+				}],
+				// 左上角返回按钮返回
+				isBack: false
 			}
 		},
 		onLoad() {
@@ -46,6 +49,10 @@
 			})
 		},
 		onNavigationBarButtonTap(e) {
+			if (!this.BeforePublish()) {
+				return
+			}
+
 			if (this.activeIndex == -1) {
 				this.$toast('请先选择社区')
 			}
@@ -64,6 +71,31 @@
 			}).finally(() => {
 				this.$hide()
 			})
+		},
+		onBackPress() {
+			if (this.isBack) {
+				return false
+			}
+
+			if (!this.BeforePublish()) {
+				uni.showModal({
+					content: '图片还未上传成功，确定要返回吗？',
+					cancelText: '取消',
+					confirmText: '确定',
+					success: (res) => {
+						if (res.cancel) {
+							return
+						}
+						this.isBack = true
+						setTimeout(() => {
+							uni.navigateBack({
+								delta: 1
+							})
+						}, 700)
+					}
+				});
+			}
+			return true
 		},
 		methods: {
 			handleChange(e) {
@@ -86,11 +118,20 @@
 						this.form.splice(index, 1)
 					}
 				});
-
 			},
 			// upload-image 传递过来的事件
 			handleUploadImage(e, item) {
 				item.images = e.map(p => p.path)
+			},
+			// validate 图片验证
+			BeforePublish() {
+				let els = this.$refs.uploadRef
+				let isUpload = true
+				for (let i = 0; i < els.length; i++) {
+					isUpload = isUpload && els[i].validate()
+				}
+
+				return isUpload
 			}
 		}
 	}

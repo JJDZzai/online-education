@@ -8,18 +8,23 @@
 			<view class="uni-uploader-body">
 				<view class="uni-uploader__files">
 					<block v-for="(image,index) in imageList" :key="index">
-						
+
 						<view class="uni-uploader__file position-relative" style="border: 1rpx solid #F4F4F4;">
-							<image class="uni-uploader__img rounded" :src="image.path" :data-src="image.path" @tap="previewImage" mode="aspectFill"></image>
-							
-							<view class="position-absolute top-0 right-0 rounded" style="padding: 0 15rpx;background-color: rgba(0,0,0,0.5);" @click.stop="deleteImage(index)">
+							<image class="uni-uploader__img rounded" :src="image.path" :data-src="image.path"
+								@tap="previewImage" mode="aspectFill"></image>
+
+							<view class="position-absolute top-0 right-0 rounded"
+								style="padding: 0 15rpx;background-color: rgba(0,0,0,0.5);"
+								@click.stop="deleteImage(index)">
 								<text class="iconfont icon-shanchu text-white"></text>
 							</view>
-							
-							<progress :percent="image.progress" activeColor="#007AFF" active class="position-absolute left-0 right-0 bottom-0" v-if="image.progress < 100" stroke-width="3"/>
-							
+
+							<progress :percent="image.progress" activeColor="#007AFF" active
+								class="position-absolute left-0 right-0 bottom-0" v-if="image.progress < 100"
+								stroke-width="3" />
+
 						</view>
-						
+
 					</block>
 					<view class="uni-uploader__input-box rounded">
 						<view class="uni-uploader__input" @tap="chooseImage"></view>
@@ -43,10 +48,10 @@
 	]
 	export default {
 		props: {
-			list:Array,
-			show:{
-				type:Boolean,
-				default:true
+			list: Array,
+			show: {
+				type: Boolean,
+				default: true
 			}
 		},
 		data() {
@@ -62,10 +67,10 @@
 			}
 		},
 		created() {
-			this.imageList = this.list.map(url=>{
+			this.imageList = this.list.map(url => {
 				return {
-					path:url,
-					// progress:20
+					path: url,
+					progress: 20
 				}
 			}) || []
 		},
@@ -78,8 +83,8 @@
 			this.countIndex = 8
 		},
 		methods: {
-			validate(){
-				if((this.imageList.filter(o=>o.progress && typeof o.progress == 'number')).length > 0){
+			validate() {
+				if ((this.imageList.filter(o => o.progress && typeof o.progress == 'number')).length > 0) {
 					uni.showToast({
 						title: '当前还有图片正在上传',
 						icon: 'none'
@@ -89,7 +94,7 @@
 				return true
 			},
 			// 删除图片
-			deleteImage(index){
+			deleteImage(index) {
 				uni.showModal({
 					title: '提示',
 					content: '是否要删除该图片？',
@@ -98,8 +103,8 @@
 					confirmText: '删除',
 					success: res => {
 						if (res.confirm) {
-							this.imageList.splice(index,1)
-							this.$emit('change',this.imageList)
+							this.imageList.splice(index, 1)
+							this.$emit('change', this.imageList)
 						}
 					},
 				});
@@ -125,13 +130,14 @@
 				uni.chooseImage({
 					sourceType: sourceType[this.sourceTypeIndex],
 					sizeType: sizeType[this.sizeTypeIndex],
-					count: this.imageList.length + this.count[this.countIndex] > 9 ? 9 - this.imageList.length : this.count[this.countIndex],
+					count: this.imageList.length + this.count[this.countIndex] > 9 ? 9 - this.imageList
+						.length : this.count[this.countIndex],
 					success: (res) => {
 						// 上传图片
-						res.tempFilePaths.forEach(path=>{
+						res.tempFilePaths.forEach(path => {
 							this.imageList.push({
 								path,
-								progress:100
+								progress: 100
 							})
 							/*
 							在这里调用api接口上传和修改上传进度
@@ -141,16 +147,16 @@
 							this.imageList.splice(index,1)
 							this.$emit('change',this.imageList)
 							*/
-						    let index = this.imageList.length - 1
-							this.$api.upload(path,(p)=>{
+							let index = this.imageList.length - 1
+							this.$api.upload(path, (p) => {
 								this.imageList[index].progress = p
-							}).then(url=>{
+							}).then(url => {
 								delete this.imageList[index].progress
 								this.imageList[index].path = url
-								this.$emit('change',this.imageList)
-							}).catch(err=>{
-								this.imageList.splice(index,1)
-								this.$emit('change',this.imageList)
+								this.$emit('change', this.imageList)
+							}).catch(err => {
+								this.imageList.splice(index, 1)
+								this.$emit('change', this.imageList)
 							})
 						})
 					},
@@ -172,7 +178,8 @@
 										authStatus = res.authSetting['scope.album'];
 										break;
 									case 2:
-										authStatus = res.authSetting['scope.album'] && res.authSetting['scope.camera'];
+										authStatus = res.authSetting['scope.album'] && res
+											.authSetting['scope.camera'];
 										break;
 									default:
 										break;
@@ -253,60 +260,71 @@
 	.list-pd {
 		margin-top: 50upx;
 	}
+
 	/* #ifndef APP-PLUS-NVUE */
-	@font-face {font-family: "iconfont";
-	  src:url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAMUAAsAAAAABuwAAALHAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCcAqBdIFfATYCJAMICwYABCAFhG0HMRsGBiMRZmNPI/vHYew22ZGPyaS9SlT7j/uYTkyqoYjGfQ8i3j9y9r39OBgVVCmUjqwCsksZFx1KqEyqQ/KYti5ti6bxQ1n6iMWv2jVjO1EYe/ufy+ldA2jj/EC5zDFpUi/AOKAA98K2JlQgBcANYxe8wOMQIJBUipGxl6lz8VHscQLIVr1hFX7Bj6Is5SO4DUsVGcDBN53mI9AffV5+UyI+GByLXTFz/bi11H7LybANow0sDRAEy1kBtgosUAwoyNzG+HQswgiWwLiSCccqFfjW6GhgRI765yEudnEwAMmQ/0wCT/iovzQAKOAB04AFk24OXkBoYEhIsAYd0YZ7r14Fht54cedBorMtVBuux4SdPBm3uuuO2Ma73bcxDbeCcqREe1azJZxyaql5Eddvv3p1RnDWmuCuW/FzQ+afuRNYceX/71gvrCGOvn/Ed3733apPBYVd4tFocWJ2ZHvklMi27P2RUyMOPI88IFNkP7LMHNvHt8zaH94X3pbVvrRzvbs/bHZh7K/smHtv3JVlv2LlqQVg9Jz9bRv+7ncYNNatCPPPLxWAzw91RCNGzym2AfDvwSHwLwUDW9QQ2QajmqAxbZiGd49VgQQCo2B3JF+nqmNuPC34xNy+0yMlA4tPNqr4YnAIogxcfGogkCImrA4iit1YRAOAQloBCOE8BEMor8ESzidU8V/AIZa/4BIuFgJ5+ZLdliV72VQcCQfGGcY/6CkG4Zq4iEtvKN9uoLwoor2QNh2CtmrKqSsGpCVmbB/ZMQsQFD1cwGnoXISFosGJK8W8HOpaND2pmqJPCo4QyACDzAAjfwDNRCQggs5MUXn/DUTyxjFAHU119hcIsaF7B1oqmgHoVR4GNT3KORsfJB0MIwAERMQDXIAVcU48AizNgwzIBFOhJkQXDtSonRgqr7ZX+r/bBQRia4w4fS3pHjWESb2TBAA=') format('woff2');
+	@font-face {
+		font-family: "iconfont";
+		src: url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAMUAAsAAAAABuwAAALHAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCcAqBdIFfATYCJAMICwYABCAFhG0HMRsGBiMRZmNPI/vHYew22ZGPyaS9SlT7j/uYTkyqoYjGfQ8i3j9y9r39OBgVVCmUjqwCsksZFx1KqEyqQ/KYti5ti6bxQ1n6iMWv2jVjO1EYe/ufy+ldA2jj/EC5zDFpUi/AOKAA98K2JlQgBcANYxe8wOMQIJBUipGxl6lz8VHscQLIVr1hFX7Bj6Is5SO4DUsVGcDBN53mI9AffV5+UyI+GByLXTFz/bi11H7LybANow0sDRAEy1kBtgosUAwoyNzG+HQswgiWwLiSCccqFfjW6GhgRI765yEudnEwAMmQ/0wCT/iovzQAKOAB04AFk24OXkBoYEhIsAYd0YZ7r14Fht54cedBorMtVBuux4SdPBm3uuuO2Ma73bcxDbeCcqREe1azJZxyaql5Eddvv3p1RnDWmuCuW/FzQ+afuRNYceX/71gvrCGOvn/Ed3733apPBYVd4tFocWJ2ZHvklMi27P2RUyMOPI88IFNkP7LMHNvHt8zaH94X3pbVvrRzvbs/bHZh7K/smHtv3JVlv2LlqQVg9Jz9bRv+7ncYNNatCPPPLxWAzw91RCNGzym2AfDvwSHwLwUDW9QQ2QajmqAxbZiGd49VgQQCo2B3JF+nqmNuPC34xNy+0yMlA4tPNqr4YnAIogxcfGogkCImrA4iit1YRAOAQloBCOE8BEMor8ESzidU8V/AIZa/4BIuFgJ5+ZLdliV72VQcCQfGGcY/6CkG4Zq4iEtvKN9uoLwoor2QNh2CtmrKqSsGpCVmbB/ZMQsQFD1cwGnoXISFosGJK8W8HOpaND2pmqJPCo4QyACDzAAjfwDNRCQggs5MUXn/DUTyxjFAHU119hcIsaF7B1oqmgHoVR4GNT3KORsfJB0MIwAERMQDXIAVcU48AizNgwzIBFOhJkQXDtSonRgqr7ZX+r/bBQRia4w4fS3pHjWESb2TBAA=') format('woff2');
 	}
-	
+
 	.iconfont {
-	  font-family: "iconfont" !important;
-	  font-size: 16px;
-	  font-style: normal;
-	  -webkit-font-smoothing: antialiased;
-	  -moz-osx-font-smoothing: grayscale;
+		font-family: "iconfont" !important;
+		font-size: 16px;
+		font-style: normal;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
 	}
-	
+
 	.icon-shanchu:before {
-	  content: "\e6a6";
+		content: "\e6a6";
 	}
+
 	/* #endif */
 	.uni-uploader {
 		flex: 1;
 		flex-direction: column;
 	}
+
 	.uni-uploader-head {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 	}
+
 	.uni-uploader-info {
 		color: #B2B2B2;
 	}
+
 	.uni-uploader-body {
 		margin-top: 16upx;
 	}
+
 	.uni-uploader__files {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
 	}
+
 	.uni-uploader__file {
 		margin: 10upx;
 		width: 210upx;
 		height: 210upx;
 	}
+
 	.uni-uploader__img {
 		display: block;
 		width: 210upx;
 		height: 210upx;
 	}
+
 	.uni-uploader__input-box {
 		position: relative;
-		margin:10upx;
+		margin: 10upx;
 		width: 208upx;
 		height: 208upx;
 		border: 2upx solid #D9D9D9;
 	}
+
 	.uni-uploader__input-box:before,
 	.uni-uploader__input-box:after {
 		content: " ";
@@ -317,21 +335,26 @@
 		transform: translate(-50%, -50%);
 		background-color: #D9D9D9;
 	}
+
 	.uni-uploader__input-box:before {
 		width: 4upx;
 		height: 79upx;
 	}
+
 	.uni-uploader__input-box:after {
 		width: 79upx;
 		height: 4upx;
 	}
+
 	.uni-uploader__input-box:active {
 		border-color: #999999;
 	}
+
 	.uni-uploader__input-box:active:before,
 	.uni-uploader__input-box:active:after {
 		background-color: #999999;
 	}
+
 	.uni-uploader__input {
 		position: absolute;
 		z-index: 1;
