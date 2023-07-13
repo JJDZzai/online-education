@@ -11,7 +11,11 @@
 		<view class="animate__animated animate__fadeIn animate__faster" v-if="current == 0">
 			<view class="flex flex-column p-3" v-if="firstLoading">
 				<text>{{ detail.title }}</text>
-				<text class="text-light-muted font-sm mt-1 mb-2">{{ detail.sub_count }}人学过</text>
+				<view class="flex justify-between">
+					<text class="text-light-muted font-sm mt-1 mb-2">{{ detail.sub_count }}人学过</text>
+					<collect-btn :goods_id="detail.id" type="column" :isfava="detail.isfava" size="20px"
+						@refresh="detail.isfava = $event"></collect-btn>
+				</view>
 				<view v-if="!detail.isbuy">
 					<text class="text-danger font mr-1">￥{{ detail.price }}</text>
 					<text class="text-light-muted font-sm text-through">￥{{ detail.t_price }}</text>

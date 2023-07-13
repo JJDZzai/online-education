@@ -19,7 +19,8 @@
 			<text class="iconfont icon-ziyuan11" :style="{color: loopStatus ? '#1B85FF' : ''}" @click="loop"></text>
 			<text class="iconfont mx-4" :class="isPlaying ? 'icon-tianchongxing-' : 'icon-bofang'"
 				@click="handlePlay"></text>
-			<text class="iconfont icon-shoucang"></text>
+			<text class="iconfont icon-shoucang1" style="font-size: 28px;"
+				:style="{color: detail.isfava ? '#1B85FF' : ''}" @click="handleCollect"></text>
 		</view>
 	</view>
 </template>
@@ -30,6 +31,14 @@
 	export default {
 		name: "f-audio",
 		props: {
+			detail: {
+				type: Object,
+				default: () => {}
+			},
+			type: {
+				type: String,
+				default: ''
+			},
 			src: {
 				type: String,
 				default: ''
@@ -84,7 +93,7 @@
 					}
 					this.currentTime = this.audioContext.currentTime
 					this.duration = this.audioContext.duration
-					
+
 					if (this.duration > 0) {
 						let progress = ((this.currentTime / this.duration) * 100).toFixed(2)
 						this.$emit('timeupdate', progress)
@@ -136,6 +145,19 @@
 				this.loopStatus = !this.loopStatus
 				this.audioContext.loop = this.loopStatus
 				this.$toast((this.loopStatus ? '开启' : '关闭') + '循环')
+			},
+			// 收藏
+			handleCollect() {
+				let fun = this.detail.isfava ? 'uncollect' : 'collect'
+				let msg = this.detail.isfava ? '取消收藏' : '已收藏'
+
+				this.$api[fun]({
+					goods_id: this.detail.id,
+					type: this.type
+				}).then(res => {
+					this.$toast(msg)
+					this.$emit('refresh', fun == 'collect' ? true : false)
+				})
 			}
 		}
 	}

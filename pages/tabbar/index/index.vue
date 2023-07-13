@@ -37,7 +37,8 @@
 					<view class="my-3 mx-2">
 						<view class="flex justify-between">
 							<text class="font-md font-weight-bold">{{ temp.title }}</text>
-							<text class="font text-light-muted" v-if="temp.showMore">{{ temp.more.title }}</text>
+							<!-- <text class="font text-light-muted" v-if="temp.showMore">{{ temp.more.title }}</text> -->
+							<text class="font text-light-muted">查看全部</text>
 						</view>
 
 						<view>

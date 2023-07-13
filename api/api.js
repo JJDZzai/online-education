@@ -200,4 +200,19 @@ export default {
 	getNoticeList(params) {
 		return request.get("/mobile/notice/list", params)
 	},
+	
+	// 收藏课程or专栏
+	collect(data) {
+		return request.post("/mobile/collect", data)
+	},
+	
+	// 取消收藏课程or专栏
+	uncollect(data) {
+		return request.post("/mobile/uncollect", data)
+	},
+	
+	// 我的收藏列表
+	readMyCollect(params) {
+		return request.get("/mobile/user_fava", params)
+	},
 }

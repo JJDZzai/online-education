@@ -10,13 +10,17 @@
 			v-else-if="detail.type == 'video'" @timeupdate="onVideoTimeUpdate"></video>
 
 		<!-- 音频播放器 -->
-		<f-audio :src="detail.content" :poster="detail.cover" v-else-if="detail.type == 'audio'"
-			@timeupdate='onAudioTimeUpdate'></f-audio>
+		<f-audio :detail="detail" type="course" :src="detail.content" :poster="detail.cover" v-else-if="detail.type == 'audio'"
+			@timeupdate="onAudioTimeUpdate" @refresh="detail.isfava = $event"></f-audio>
 
 		<view class="animate__animated animate__fadeIn animate__faster">
 			<view class="flex flex-column p-3" v-if="firstLoading">
 				<text>{{ detail.title }}</text>
-				<text class="text-light-muted font-sm mt-1 mb-2">{{ detail.sub_count }}人学过</text>
+				<view class="flex justify-between">
+					<text class="text-light-muted font-sm mt-1 mb-2 mr-1">{{ detail.sub_count }}人学过</text>
+					<collect-btn :goods_id="detail.id" type="course" :isfava="detail.isfava"
+						@refresh="detail.isfava = $event"></collect-btn>
+				</view>
 				<view v-if="!detail.isbuy">
 					<text class="text-danger font mr-1">￥{{ detail.price }}</text>
 					<text class="text-light-muted font-sm text-through">￥{{ detail.t_price }}</text>

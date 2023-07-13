@@ -5,11 +5,12 @@
 			<text class="cource-text text-white font-sm mb-1" v-if="item.type">{{ item.type | formatType }}</text>
 		</view>
 		<view class="view-second flex flex-column flex-shrink">
-			<text class="font-md text-ellipsis mt-1">{{ item.title }}</text>
+			<text class="font-md text-ellipsis mt-1" v-if="show">{{ item.title }}</text>
+			<text class="font-md mt-1" v-else>{{ item.title }}</text>
 			<slot name="desc">
-				<text class="font-sm text-light-muted my-1" v-if="item.try" v-html="item.try"></text>
+				<text class="font-sm text-light-muted my-1" v-if="show" v-html="item.try"></text>
 			</slot>
-			<view class="flex flex-1 align-end">
+			<view class="flex flex-1 align-end" v-if="item.price &&  item.t_price">
 				<slot name="footer">
 					<text class="font-md text-danger">￥{{item.price}}</text>
 					<text class="font-sm text-light-muted">￥{{ item.t_price }}</text>
@@ -36,6 +37,10 @@
 			colType: {
 				type: String,
 				default: 'two'
+			},
+			show: {
+				type: Boolean,
+				default: true
 			}
 		},
 		filters: {

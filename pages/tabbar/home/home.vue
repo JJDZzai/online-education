@@ -61,10 +61,11 @@
 				}, {
 					icon: "icon-pinglun2",
 					name: "消息",
-					path:"/pages/mes-list/mes-list"
+					path: "/pages/mes-list/mes-list"
 				}, {
 					icon: "icon-shoucang1",
-					name: "收藏"
+					name: "收藏",
+					path: "/pages/collect-list/collect-list"
 				}, {
 					icon: "icon-e-learning-monitor",
 					name: "在学"
