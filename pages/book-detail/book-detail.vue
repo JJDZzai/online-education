@@ -72,7 +72,7 @@
 		<template v-if="!detail.isbuy && firstLoading">
 			<view style="height: 75px;"></view>
 			<view class="fixed-bottom bg-white p-2 border-top">
-				<main-btn>立即订购￥{{ detail.price }}</main-btn>
+				<main-btn @submit="handleSubmit">{{ detail.price == 0 ? '立即学习' : '立即订购' + detail.price}}</main-btn>
 			</view>
 		</template>
 	</view>
@@ -138,6 +138,17 @@
 					return this.$toast('请先购买该电子书')
 				}
 				this.authJump(`/pages/book-column/book-column?id=${item.id}&book_id=${this.detail.id}`)
+			},
+			handleSubmit() {
+				this.$load('提交中...')
+				this.$api.learnNow({
+					goods_id: this.detail.id,
+					type: 'book'
+				}).then((res) => {
+					this.getData()
+				}).finally(() => {
+					this.$hide()
+				})
 			}
 		}
 	}

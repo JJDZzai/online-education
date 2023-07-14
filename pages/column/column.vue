@@ -5,6 +5,13 @@
 			<view class="detail-text text-white font-sm p-1">专栏</view>
 		</view>
 
+		<active-bar :price="activeData.data.price" :t_price="detail.price" :end_time="activeData.data.end_time"
+			v-if="activeData && !detail.isbuy">
+			<text v-if="activeData.type == 'group'">{{ activeData.data.p_num }}人拼团</text>
+			<text v-else>{{ activeData.data.used_num }}人已抢 / 剩 {{ activeData.data.s_num - activeData.data.used_num }}
+				名</text>
+		</active-bar>
+
 		<tab :current="current" :tabs="tabs" @change="handleChange"></tab>
 
 		<!-- 简介部分 -->
@@ -13,7 +20,7 @@
 				<text>{{ detail.title }}</text>
 				<view class="flex justify-between">
 					<text class="text-light-muted font-sm mt-1 mb-2">{{ detail.sub_count }}人学过</text>
-					<collect-btn :goods_id="detail.id" type="column" :isfava="detail.isfava" size="20px"
+					<collect-btn :goods_id="Number(detail.id)" type="column" :isfava="detail.isfava" size="20px"
 						@refresh="detail.isfava = $event"></collect-btn>
 				</view>
 				<view v-if="!detail.isbuy">
@@ -63,7 +70,7 @@
 		<template v-if="!detail.isbuy && firstLoading">
 			<view style="height: 75px;"></view>
 			<view class="fixed-bottom bg-white p-2 border-top">
-				<main-btn>立即订购￥{{ detail.price }}</main-btn>
+				<main-btn @submit="handleSubmit">{{ detail.price == 0 ? '立即学习' : '立即订购' + detail.price}}</main-btn>
 			</view>
 		</template>
 	</view>
@@ -83,8 +90,13 @@
 		},
 		data() {
 			return {
+				// 普通课程数据
 				detail: {},
+				// 秒杀/拼团数据
+				activeData: null,
 				list: [],
+				group_id: 0,
+				flashsale_id: 0,
 				firstLoading: false, // 按钮加载
 				current: 0,
 				tabs: [{
@@ -105,6 +117,14 @@
 					})
 				}, 700)
 			}
+
+			if (e.group_id) {
+				this.group_id = e.group_id
+			}
+
+			if (e.flashsale_id) {
+				this.flashsale_id = e.flashsale_id
+			}
 		},
 		onShow() {
 			this.getData()
@@ -112,10 +132,27 @@
 		methods: {
 			getData() {
 				this.$api.getColumnDetail({
-					id: this.detail.id
+					id: this.detail.id,
+					group_id: this.group_id,
+					flashsale_id: this.flashsale_id
 				}).then(res => {
 					this.detail = res
 					this.list = res.column_courses
+
+					if (res.group) {
+						this.activeData = {
+							type: 'group',
+							data: res.group
+						}
+					}
+
+					if (res.flashsale) {
+						this.activeData = {
+							type: 'flashsale',
+							data: res.flashsale
+						}
+					}
+
 					uni.setNavigationBarTitle({
 						title: this.detail.title
 					})
@@ -139,6 +176,17 @@
 					return this.$toast('请先购买该专栏')
 				}
 				this.authJump(`/pages/course-detail/course-detail?id=${item.id}&column_id=${this.detail.id}`)
+			},
+			handleSubmit() {
+				this.$load('提交中...')
+				this.$api.learnNow({
+					goods_id: this.detail.id,
+					type: 'column'
+				}).then((res) => {
+					this.getData()
+				}).finally(() => {
+					this.$hide()
+				})
 			}
 		}
 	}

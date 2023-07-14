@@ -1,5 +1,5 @@
 <template>
-	<view class="scroll-row-item mr-2 mt-3" :class="'cource-' + this.colType" @click="handleDetail">
+	<view class="scroll-row-item" :class="'cource-' + this.colType" @click="handleDetail">
 		<view class="view-first position-relative">
 			<image class="cource-image" :src="item.cover" mode="widthFix"></image>
 			<text class="cource-text text-white font-sm mb-1" v-if="item.type">{{ item.type | formatType }}</text>
@@ -10,10 +10,12 @@
 			<slot name="desc">
 				<text class="font-sm text-light-muted my-1" v-if="show" v-html="item.try"></text>
 			</slot>
-			<view class="flex flex-1 align-end" v-if="item.price &&  item.t_price">
+			<view class="flex flex-1 align-end">
 				<slot name="footer">
-					<text class="font-md text-danger">￥{{item.price}}</text>
-					<text class="font-sm text-light-muted">￥{{ item.t_price }}</text>
+					<text class="font-sm font-weight-bold text-danger mr-1" v-if="tag">{{ tag }}</text>
+					<text class="font-md text-danger mr-1" v-if="item.price == 0">免费</text>
+					<text class="font text-danger mr-1" v-if="item.price  && item.price != 0">￥{{item.price}}</text>
+					<text class="font-sm text-light-muted text-through" v-if="item.t_price">￥{{ item.t_price }}</text>
 				</slot>
 			</view>
 		</view>
@@ -41,6 +43,10 @@
 			show: {
 				type: Boolean,
 				default: true
+			},
+			tag: {
+				type: String,
+				default: ''
 			}
 		},
 		filters: {
@@ -55,9 +61,19 @@
 		},
 		methods: {
 			handleDetail() {
-				let url = '/pages/course-detail/course-detail?id=' + this.item.id
-				if (!this.item.type) {
-					url = '/pages/column/column?id=' + this.item.id
+				let params = `id=${this.item.id}`
+
+				if (this.item.group_id) {
+					params += `&group_id=${this.item.group_id}`
+				}
+
+				if (this.item.flashsale_id) {
+					params += `&flashsale_id=${this.item.flashsale_id}`
+				}
+
+				let url = '/pages/course-detail/course-detail?' + params
+				if (!this.item.type || this.item.type == 'column') {
+					url = '/pages/column/column?' + params
 				}
 				this.navigateTo(url)
 			}
@@ -68,11 +84,17 @@
 <style>
 	.cource-one {
 		display: flex !important;
+		margin-top: 30rpx;
 
 		& .view-first {
 			flex-shrink: 1;
 			margin-right: 20rpx;
 		}
+	}
+
+	.cource-two {
+		width: 340rpx;
+		margin: 20rpx 10rpx 0 5rpx;
 	}
 
 	/* 公共样式 */

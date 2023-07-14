@@ -37,6 +37,7 @@
 						this.navigateTo('/pages/book/book')
 						break
 					default:
+						this.navigateTo('/pages/list/list?module=' + icon.module)
 						break;
 				}
 			}

@@ -90,12 +90,12 @@ export default {
 		return request.get("/mobile/search", params)
 	},
 
-	// 查看课程详情
+	// 查看课程详情，查看拼团课程详情
 	getCourseDetail(params) {
 		return request.get("/mobile/course/read", params)
 	},
 
-	// 查看专栏详情
+	// 查看专栏详情，查看拼团专栏详情，查看秒杀专栏详情
 	getColumnDetail(params) {
 		return request.get("/mobile/column/read", params)
 	},
@@ -165,54 +165,81 @@ export default {
 	readPostComment(params) {
 		return request.get("/mobile/post_comment", params)
 	},
-	
+
 	// 评论帖子
 	replyPost(data) {
 		return request.post("/mobile/post/reply", data)
 	},
-	
+
 	// 我的帖子列表
 	readMyPost(params) {
 		return request.get("/mobile/mypost", params)
 	},
-	
+
 	// 删除帖子
 	deletePost(data) {
 		return request.post("/mobile/post/delete", data)
 	},
-	
+
 	// 电子书列表
 	getBookList(params) {
 		return request.get("/mobile/book/list", params)
 	},
-	
+
 	// 查看电子书详情
 	readBookDetail(params) {
 		return request.get("/mobile/book/read", params)
 	},
-	
+
 	// 查看电子书章节和内容
 	getBookChapter(params) {
 		return request.get("/mobile/book/detail", params)
 	},
-	
+
 	// 公告列表
 	getNoticeList(params) {
 		return request.get("/mobile/notice/list", params)
 	},
-	
+
 	// 收藏课程or专栏
 	collect(data) {
 		return request.post("/mobile/collect", data)
 	},
-	
+
 	// 取消收藏课程or专栏
 	uncollect(data) {
 		return request.post("/mobile/uncollect", data)
 	},
-	
+
 	// 我的收藏列表
 	readMyCollect(params) {
 		return request.get("/mobile/user_fava", params)
+	},
+
+	// 课程列表
+	getCourseList(params) {
+		return request.get("/mobile/course/list", params)
+	},
+
+	// 专栏列表
+	getColumnList(params) {
+		return request.get("/mobile/column/list", params)
+	},
+
+	// 获取可用秒杀列表
+	getFlashsaleList(params) {
+		params.usable = 1
+		return request.get("/mobile/flashsale", params)
+	},
+
+	// 获取可用拼团列表
+	getGroupList(params) {
+		params.usable = 1
+		return request.get("/mobile/group", params)
+	},
+	
+	// 立即学习
+	learnNow(data) {
+		return request.post("/mobile/order/learn", data)
 	},
 }

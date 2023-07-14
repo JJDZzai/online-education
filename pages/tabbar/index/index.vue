@@ -38,7 +38,7 @@
 						<view class="flex justify-between">
 							<text class="font-md font-weight-bold">{{ temp.title }}</text>
 							<!-- <text class="font text-light-muted" v-if="temp.showMore">{{ temp.more.title }}</text> -->
-							<text class="font text-light-muted">查看全部</text>
+							<text class="font text-light-muted" @click="openList">查看全部</text>
 						</view>
 
 						<view>
@@ -99,6 +99,10 @@
 				if (this.$refs.couponRef && this.$refs.couponRef[0]) {
 					this.$refs.couponRef[0].getData()
 				}
+			},
+			// 列表页
+			openList() {
+				this.navigateTo('../../list/list?module=course')
 			}
 		}
 	}

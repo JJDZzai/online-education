@@ -10,15 +10,25 @@
 			v-else-if="detail.type == 'video'" @timeupdate="onVideoTimeUpdate"></video>
 
 		<!-- 音频播放器 -->
-		<f-audio :detail="detail" type="course" :src="detail.content" :poster="detail.cover" v-else-if="detail.type == 'audio'"
-			@timeupdate="onAudioTimeUpdate" @refresh="detail.isfava = $event"></f-audio>
+		<f-audio :detail="detail" type="course" :src="detail.content" :poster="detail.cover"
+			v-else-if="detail.type == 'audio'" @timeupdate="onAudioTimeUpdate"
+			@refresh="detail.isfava = $event"></f-audio>
+
+
+		<!-- 拼团 -->
+		<active-bar :price="activeData.data.price" :t_price="detail.price" :end_time="activeData.data.end_time"
+			v-if="activeData && !detail.isbuy">
+			<text v-if="activeData.type == 'group'">{{ activeData.data.p_num }}人拼团</text>
+			<text v-else>{{ activeData.data.used_num }}人已抢 / 剩
+				{{ activeData.data.s_num - activeData.data.used_num }}名</text>
+		</active-bar>
 
 		<view class="animate__animated animate__fadeIn animate__faster">
 			<view class="flex flex-column p-3" v-if="firstLoading">
 				<text>{{ detail.title }}</text>
 				<view class="flex justify-between">
 					<text class="text-light-muted font-sm mt-1 mb-2 mr-1">{{ detail.sub_count }}人学过</text>
-					<collect-btn :goods_id="detail.id" type="course" :isfava="detail.isfava"
+					<collect-btn :goods_id="Number(detail.id)" type="course" :isfava="detail.isfava"
 						@refresh="detail.isfava = $event"></collect-btn>
 				</view>
 				<view v-if="!detail.isbuy">
@@ -53,7 +63,7 @@
 			<template v-if="!detail.isbuy && firstLoading">
 				<view style="height: 75px;"></view>
 				<view class="fixed-bottom bg-white p-2 border-top">
-					<main-btn>立即订购￥{{ detail.price }}</main-btn>
+					<main-btn @submit="handleSubmit">{{ detail.price == 0 ? '立即学习' : '立即订购' + detail.price}}</main-btn>
 				</view>
 			</template>
 		</view>
@@ -76,8 +86,13 @@
 		},
 		data() {
 			return {
+				// 普通课程数据
 				detail: {},
+				// 秒杀/拼团数据
+				activeData: null,
 				column_id: 0,
+				group_id: 0,
+				flashsale_id: 0,
 				firstLoading: false, // 按钮加载
 				scrollTop: 0,
 				mediaHeight: 0,
@@ -107,6 +122,14 @@
 				this.column_id = e.column_id
 			}
 
+			if (e.group_id) {
+				this.group_id = e.group_id
+			}
+
+			if (e.flashsale_id) {
+				this.flashsale_id = e.flashsale_id
+			}
+
 			this.getData()
 		},
 		beforeDestroy() {
@@ -116,9 +139,27 @@
 			getData() {
 				this.$api.getCourseDetail({
 					id: this.detail.id,
-					column_id: this.column_id
+					column_id: this.column_id,
+					group_id: this.group_id,
+					flashsale_id: this.flashsale_id
 				}).then(res => {
+					console.log(res);
 					this.detail = res
+
+					if (res.group) {
+						this.activeData = {
+							type: 'group',
+							data: res.group
+						}
+					}
+
+					if (res.flashsale) {
+						this.activeData = {
+							type: 'flashsale',
+							data: res.flashsale
+						}
+					}
+
 					uni.setNavigationBarTitle({
 						title: this.detail.title
 					})
@@ -186,6 +227,17 @@
 
 				this.$api.updateUserhistory(data)
 			},
+			handleSubmit() {
+				this.$load('提交中...')
+				this.$api.learnNow({
+					goods_id: this.detail.id,
+					type: 'course'
+				}).then((res) => {
+					this.getData()
+				}).finally(() => {
+					this.$hide()
+				})
+			}
 		}
 	}
 </script>
