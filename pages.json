@@ -246,21 +246,33 @@
 			"enablePullDownRefresh": true
 		}
 
+	}, {
+		"path": "pages/collect-list/collect-list",
+		"style": {
+			"navigationBarTitleText": "我的收藏",
+			"enablePullDownRefresh": true
+		}
+
+	}, {
+		"path": "pages/list/list",
+		"style": {
+			"navigationBarTitleText": "列表页",
+			"enablePullDownRefresh": true
+		}
+
+	}, {
+		"path": "pages/create-order/create-order",
+		"style": {
+			"navigationBarTitleText": "创建订单",
+			"enablePullDownRefresh": false
+		}
+
 	}    ,{
-            "path" : "pages/collect-list/collect-list",
+            "path" : "pages/H5pay/H5pay",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "我的收藏",
-                "enablePullDownRefresh": true
-            }
-            
-        }
-        ,{
-            "path" : "pages/list/list",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "列表页",
-                "enablePullDownRefresh": true
+                "navigationBarTitleText": "微信H5支付",
+                "enablePullDownRefresh": false
             }
             
         }

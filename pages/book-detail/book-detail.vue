@@ -140,15 +140,17 @@
 				this.authJump(`/pages/book-column/book-column?id=${item.id}&book_id=${this.detail.id}`)
 			},
 			handleSubmit() {
-				this.$load('提交中...')
-				this.$api.learnNow({
-					goods_id: this.detail.id,
-					type: 'book'
-				}).then((res) => {
-					this.getData()
-				}).finally(() => {
-					this.$hide()
-				})
+				if (this.detail.price == 0) {
+					this.$load('提交中...')
+					this.$api.learnNow({
+						goods_id: this.detail.id,
+						type: 'course'
+					}).then((res) => {
+						this.getData()
+					}).finally(() => {
+						this.$hide()
+					})
+				}
 			}
 		}
 	}

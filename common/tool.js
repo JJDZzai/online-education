@@ -98,5 +98,10 @@ export default {
 			minute,
 			second
 		}
+	},
+
+	// 判断是否处于微信浏览器中
+	isInWechat() {
+		return String(navigator.userAgent.toLowerCase().match(/MicroMessenger/i)) === "micromessenger"
 	}
 }

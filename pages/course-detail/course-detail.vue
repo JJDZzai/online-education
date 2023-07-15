@@ -143,7 +143,6 @@
 					group_id: this.group_id,
 					flashsale_id: this.flashsale_id
 				}).then(res => {
-					console.log(res);
 					this.detail = res
 
 					if (res.group) {
@@ -228,15 +227,21 @@
 				this.$api.updateUserhistory(data)
 			},
 			handleSubmit() {
-				this.$load('提交中...')
-				this.$api.learnNow({
-					goods_id: this.detail.id,
-					type: 'course'
-				}).then((res) => {
-					this.getData()
-				}).finally(() => {
-					this.$hide()
-				})
+				if (this.detail.price == 0) {
+					this.$load('提交中...')
+					this.$api.learnNow({
+						goods_id: this.detail.id,
+						type: 'course'
+					}).then((res) => {
+						this.getData()
+					}).finally(() => {
+						this.$hide()
+					})
+				}
+
+				let id = this.detail.id
+				let type = 'course'
+				this.authJump(`../create-order/create-order?id=${id}&type=${type}`)
 			}
 		}
 	}

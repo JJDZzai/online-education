@@ -48,10 +48,10 @@
 <style>
 	.icon-nav {
 		width: 25%;
+	}
 
-		& .icon-nav-image {
-			width: 70rpx;
-			height: 70rpx;
-		}
+	.icon-nav-image {
+		width: 70rpx;
+		height: 70rpx;
 	}
 </style>

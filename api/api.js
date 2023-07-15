@@ -237,9 +237,29 @@ export default {
 		params.usable = 1
 		return request.get("/mobile/group", params)
 	},
-	
+
 	// 立即学习
 	learnNow(data) {
 		return request.post("/mobile/order/learn", data)
+	},
+
+	// 下单前获取产品信息
+	readGoods(params) {
+		return request.get("/mobile/goods/read", params)
+	},
+
+	// 获取指定课程or专栏的可用优惠券数
+	getUserCouponCount(params) {
+		return request.get("/mobile/user_coupon/count", params)
+	},
+
+	// 创建订单
+	createOrder(data) {
+		return request.post("/mobile/order/save", data)
+	},
+	
+	// 微信app或小程序或H5支付订单
+	wxpay(data) {
+		return request.post("/mobile/order/wxpay", data)
 	},
 }
