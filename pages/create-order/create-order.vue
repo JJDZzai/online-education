@@ -130,11 +130,10 @@
 				}).then(res => {
 					/* 进行支付，跳转到支付页面 */
 
-					// H5支付
+					// H5支付，只在H5端生效
 					// #ifdef H5
 					let no = res.no
 					this.navigateTo('../H5pay/H5pay?no=' + no)
-					
 					// #endif
 				}).finally(() => {
 					this.$hide()

@@ -63,7 +63,8 @@
 			<template v-if="!detail.isbuy && firstLoading">
 				<view style="height: 75px;"></view>
 				<view class="fixed-bottom bg-white p-2 border-top">
-					<main-btn @submit="handleSubmit">{{ detail.price == 0 ? '立即学习' : '立即订购' + detail.price}}</main-btn>
+					<main-btn
+						@submit="handleSubmit">{{ detail.price == 0 ? '立即学习' : '立即订购' + '￥' +detail.price}}</main-btn>
 				</view>
 			</template>
 		</view>

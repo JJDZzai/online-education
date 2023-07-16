@@ -257,9 +257,29 @@ export default {
 	createOrder(data) {
 		return request.post("/mobile/order/save", data)
 	},
-	
+
 	// 微信app或小程序或H5支付订单
 	wxpay(data) {
 		return request.post("/mobile/order/wxpay", data)
+	},
+
+	// 直播列表
+	getLiveList(params) {
+		return request.get("/mobile/live/list", params)
+	},
+
+	// 查看直播详情
+	readLive(params) {
+		return request.get("/mobile/live/read", params)
+	},
+
+	// 发表弹幕
+	sendLiveComment(data) {
+		return request.post("/mobile/live_comment/save", data)
+	},
+
+	// 查看弹幕列表
+	readLiveComment(params) {
+		return request.get("/mobile/live_comment", params)
 	},
 }

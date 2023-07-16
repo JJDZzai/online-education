@@ -23,12 +23,6 @@
 </template>
 
 <script>
-	let type = {
-		media: "图文",
-		audio: "音频",
-		video: "视频",
-		column: "专栏"
-	}
 	export default {
 		name: "course-list",
 		props: {
@@ -51,6 +45,12 @@
 		},
 		filters: {
 			formatType(k) {
+				let type = {
+					media: "图文",
+					audio: "音频",
+					video: "视频",
+					column: "专栏"
+				}
 				return type[k]
 			}
 		},
@@ -75,6 +75,11 @@
 				if (!this.item.type || this.item.type == 'column') {
 					url = '/pages/column/column?' + params
 				}
+
+				if (this.item.type == 'live') {
+					url = '/pages/live/live?' + params
+				}
+
 				this.navigateTo(url)
 			}
 		}

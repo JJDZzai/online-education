@@ -165,6 +165,11 @@
 			},
 			// 接收 comment-popup 传递过来的事件
 			sendComment(content) {
+				let cont = content.replace(/(^\s*)|(\s*$)/g, "");
+				if (cont == '') {
+					return this.$toast('评论内容不能为空')
+				}
+				
 				let data = {
 					post_id: this.detail.id,
 					content,

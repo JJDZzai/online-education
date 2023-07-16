@@ -9,7 +9,7 @@
 					</view>
 				</view>
 				<view class="p-2">
-					<textarea class="w-100" v-model="content" placeholder="发表评论..." />
+					<textarea class="w-100 font" v-model="content" placeholder="发表评论..." />
 				</view>
 			</view>
 		</uni-popup>

@@ -271,7 +271,16 @@
             "path" : "pages/H5pay/H5pay",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "微信H5支付",
+                "navigationBarTitleText": "支付",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/live/live",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "直播详情页",
                 "enablePullDownRefresh": false
             }
             
