@@ -109,6 +109,7 @@
 
 				this.videoPlayer = new FlvPlayer({
 					id: 'video',
+					
 					url: this.item.playUrl, // 拉流，服务器已有直播，把链接拉过来，赋值
 					isLive: true,
 					playsinline: true,

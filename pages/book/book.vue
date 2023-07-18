@@ -31,9 +31,8 @@
 				return this.$api.getBookList({
 					page: this.page,
 				}).then(res => {
-					console.log(res);
-					this.list = this.page == '1' ? res.rows : [...this.list, ...res.rows],
-						this.loadStatus = res.rows.length < 10 ? 'noMore' : 'more'
+					this.list = this.page == '1' ? res.rows : [...this.list, ...res.rows]
+					this.loadStatus = res.rows.length < 10 ? 'noMore' : 'more'
 				}).catch(() => {
 					this.loadStatus = 'more'
 					if (this.page > 1) {

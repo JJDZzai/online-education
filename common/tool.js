@@ -1,3 +1,5 @@
+import $api from '@/api/api.js'
+
 export default {
 	// 字节转换
 	bytesToSize(bytes) {
@@ -103,5 +105,33 @@ export default {
 	// 判断是否处于微信浏览器中
 	isInWechat() {
 		return String(navigator.userAgent.toLowerCase().match(/MicroMessenger/i)) === "micromessenger"
+	},
+
+	// APP支付
+	async appPay(no, success = false, fail = false) {
+		let orderInfo = await $api.wxpay({
+			no,
+			type: 'app'
+		})
+
+		uni.requestPayment({
+			"provider": "wxpay",
+			"orderInfo": orderInfo,
+			success: (resp) => {
+				this.$toast('支付成功')
+				if (success && typeof success == 'function') {
+					success()
+				}
+			},
+			fail: (err) => {
+				uni.showModal({
+					content: '支付失败',
+					showCancel: false
+				});
+				if (fail && typeof fail == 'function') {
+					fail()
+				}
+			}
+		})
 	}
 }

@@ -51,7 +51,10 @@
 
 				// H5支付
 				this.wxH5Pay(oderInfo, (res) => {
-					console.log(res);
+					this.status = 'success'
+					uni.navigateBack({
+						delta: 1
+					});
 				})
 			} catch (err) {
 				//TODO handle the exception

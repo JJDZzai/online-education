@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="p-2">
-			<course-list :item="orderInfo" colType="one"></course-list>
+			<course-list :item="orderInfo" colType="one" disabled></course-list>
 		</view>
 
 		<view class="divider"></view>
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+	import tool from '@/common/tool.js'
+
 	export default {
 		data() {
 			return {
@@ -134,6 +136,15 @@
 					// #ifdef H5
 					let no = res.no
 					this.navigateTo('../H5pay/H5pay?no=' + no)
+					// #endif
+
+					// APP支付，只在APP端生效
+					// #ifdef APP-PLUS
+					tool.appPay(res.no, () => {
+						uni.navigateBack({
+							delta: 1
+						});
+					})
 					// #endif
 				}).finally(() => {
 					this.$hide()

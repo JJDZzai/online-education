@@ -24,7 +24,10 @@
 			}
 		},
 		onPullDownRefresh() {
-			this.refresh()
+			this.page = 1
+			this.getData().finally(() => {
+				uni.stopPullDownRefresh()
+			})
 		},
 		onReachBottom() {
 			this.loadMore()
@@ -57,15 +60,6 @@
 			}
 		},
 		methods: {
-			// 滑动操作
-			onClick(item) {
-				this.$api.uncollect({
-					goods_id: item.goods.id,
-					type: item.type
-				}).then(res => {
-					this.refresh()
-				})
-			},
 			getData() {
 				let fun = {
 					course: 'getCourseList',
@@ -94,9 +88,7 @@
 							} else {
 								r.status = '进行中'
 							}
-
 							r.type = 'live'
-
 							return r
 						})
 					}
@@ -114,12 +106,6 @@
 				this.page = this.page + 1
 				this.getData()
 			},
-			refresh() {
-				this.page = 1
-				this.getData().finally(() => {
-					uni.stopPullDownRefresh()
-				})
-			}
 		}
 	}
 </script>

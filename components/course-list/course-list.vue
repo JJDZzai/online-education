@@ -41,6 +41,10 @@
 			tag: {
 				type: String,
 				default: ''
+			},
+			disabled: {
+				type: Boolean,
+				default: false
 			}
 		},
 		filters: {
@@ -61,6 +65,10 @@
 		},
 		methods: {
 			handleDetail() {
+				if (this.disabled) {
+					return
+				}
+
 				let params = `id=${this.item.id}`
 
 				if (this.item.group_id) {

@@ -152,6 +152,10 @@
 						this.$hide()
 					})
 				}
+				
+				let id = this.detail.id
+				let type = 'book'
+				this.authJump(`../create-order/create-order?id=${id}&type=${type}`)
 			}
 		}
 	}

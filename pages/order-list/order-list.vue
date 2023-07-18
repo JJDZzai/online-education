@@ -8,8 +8,14 @@
 				</view>
 				<view class="font font-weight-bold">{{ item.goods }}</view>
 				<view class="flex justify-end text-danger font-weight-bold">￥{{ item.price }}</view>
-				<view :class="item.status == 'success' ? 'text-success' : ''">
-					<slot name="actions">{{ item.status == 'success' ? '交易成功' : '等待支付' }}</slot>
+				<view class="flex justify-between align-center mt-3">
+					<view :class="item.status == 'success' ? 'text-success' : ''">
+						<slot name="actions">{{ item.status == 'success' ? '交易成功' : '等待支付' }}</slot>
+					</view>
+					<!-- v-if="item.status == 'pendding'" -->
+					<view class="payment">
+						<button type="default" @click="pay(item.no)">立即支付</button>
+					</view>
 				</view>
 			</uni-card>
 			<view class="divider"></view>
@@ -19,6 +25,8 @@
 </template>
 
 <script>
+	import tool from '@/common/tool.js'
+
 	export default {
 		data() {
 			return {
@@ -46,7 +54,7 @@
 					page: this.page,
 					limit: this.limit
 				}).then(res => {
-					this.list = this.page == '1' ? res.rows : [...this.list, ...res.rows],
+					this.list = this.page == '1' ? res.rows : [...this.list, ...res.rows]
 					this.loadStatus = res.rows.length < this.limit ? 'noMore' : 'more'
 				}).catch(() => {
 					this.loadStatus = 'more'
@@ -61,11 +69,33 @@
 				}
 				this.page = this.page + 1
 				this.getData()
+			},
+			pay(no) {
+				// H5支付，只在H5端生效
+				// #ifdef H5
+				this.navigateTo('../H5pay/H5pay?no=' + no)
+				// #endif
+
+				// APP支付，只在APP端生效
+				// #ifdef APP-PLUS
+				tool.appPay(no, () => {
+					this.page = 1
+					this.getData()
+				})
+				// #endif
 			}
 		}
 	}
 </script>
 
 <style>
-
+	.payment button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 170rpx;
+		font-size: 14px;
+		color: #FFFFFF;
+		background-color: #00bfff;
+	}
 </style>

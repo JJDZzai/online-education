@@ -8,8 +8,7 @@
 		<active-bar :price="activeData.data.price" :t_price="detail.price" :end_time="activeData.data.end_time"
 			v-if="activeData && !detail.isbuy">
 			<text v-if="activeData.type == 'group'">{{ activeData.data.p_num }}人拼团</text>
-			<text v-else>{{ activeData.data.used_num }}人已抢 / 剩 {{ activeData.data.s_num - activeData.data.used_num }}
-				名</text>
+			<text class="p"  v-else>{{ activeData.data.used_num }}人已抢 / 剩 {{ activeData.data.s_num - activeData.data.used_num }} 名</text>
 		</active-bar>
 
 		<tab :current="current" :tabs="tabs" @change="handleChange"></tab>
@@ -70,7 +69,7 @@
 		<template v-if="!detail.isbuy && firstLoading">
 			<view style="height: 75px;"></view>
 			<view class="fixed-bottom bg-white p-2 border-top">
-				<main-btn @submit="handleSubmit">{{ detail.price == 0 ? '立即学习' : '立即订购' + detail.price}}</main-btn>
+				<main-btn @submit="handleSubmit">{{ detail.price == 0 ? '立即学习' : '立即订购' + '￥' + detail.price}}</main-btn>
 			</view>
 		</template>
 	</view>
@@ -189,6 +188,10 @@
 						this.$hide()
 					})
 				}
+
+				let id = this.detail.id
+				let type = 'column'
+				this.authJump(`../create-order/create-order?id=${id}&type=${type}`)
 			}
 		}
 	}
