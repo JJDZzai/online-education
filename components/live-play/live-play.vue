@@ -5,7 +5,7 @@
 		<view id="video"></view>
 		<!-- #endif -->
 
-		<!-- 滚动视图 :style="'height: '+ scrollH +'px;'" -->
+		<!-- 滚动视图 -->
 		<scroll-view class="bg-light" :style="'height: '+ scrollH +'px;'" scroll-y="true"
 			:scroll-into-view="scrollInto">
 			<view class="font text-danger p-2">系统提示：直播内容及互动评论须严格遵守直播规范，严禁传播违法违规，低俗血暴，吸烟酗酒，造谣诈骗等不良有害信息。</view>
@@ -86,7 +86,6 @@
 				})
 			},
 
-
 			// 初始化播放器
 			initVideo(comments = []) {
 				// 处理弹幕格式
@@ -109,7 +108,6 @@
 
 				this.videoPlayer = new FlvPlayer({
 					id: 'video',
-					
 					url: this.item.playUrl, // 拉流，服务器已有直播，把链接拉过来，赋值
 					isLive: true,
 					playsinline: true,
@@ -134,7 +132,7 @@
 					playbackRate: [0.5, 0.75, 1, 1.5, 2],
 					defaultPlaybackRate: 1
 				});
-				// 播放时间改变 timeupdate
+				// 播放时间改变
 				this.videoPlayer.on('timeupdate', this.handleTimeUpdate)
 			},
 			handleTimeUpdate(e) {

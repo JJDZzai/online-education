@@ -133,5 +133,26 @@ export default {
 				}
 			}
 		})
-	}
+	},
+	// 微信H5登录获取code
+	getH5Code() {
+		// 微信公众号的appid
+		let appid = 'wxf0d98abcc66aab61'
+		let href = window.location.href
+		if (href.indexOf('?code') != -1) {
+			let h = href.split('#/')
+			h[0] = window.location.protocol + "//" + window.location.host
+			href = h[0] + '/#/' + h[1]
+		}
+		let local = encodeURIComponent(href);
+		const url =
+			`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${local}&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect`;
+		location.href = url
+	},
+	// 从url中提取code防止微信H5登录获取code反复从定向
+	getUrlCode(name) {
+		return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [,
+				''])[1]
+			.replace(/\+/g, '%20')) || null
+	},
 }

@@ -12,7 +12,7 @@
 				<!-- 轮播图 -->
 				<swiper v-else-if="temp.type == 'swiper'" :indicator-dots="true" :autoplay="true" :interval="3000"
 					:duration="1000">
-					<swiper-item class="flex justify-center" v-for="(swiper, index) in temp.data" :key="index">
+					<swiper-item class="flex justify-center" v-for="(swiper, sI) in temp.data" :key="sI">
 						<image :src="swiper.src" mode="aspectFill" class="swiper-item-image rounded shadow">
 						</image>
 					</swiper-item>
@@ -42,7 +42,7 @@
 						</view>
 
 						<view>
-							<course-list :colType="temp.listType" v-for="(item, index) in temp.data" :key="index"
+							<course-list :colType="temp.listType" v-for="(item, tI) in temp.data" :key="tI"
 								:item="item"></course-list>
 						</view>
 					</view>

@@ -8,22 +8,73 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(wx, createApp) {
+/* WEBPACK VAR INJECTION */(function(wx, uni, createApp) {
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
 __webpack_require__(/*! uni-pages */ 26);
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
 var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 27));
+var _api = _interopRequireDefault(__webpack_require__(/*! @/api/api.js */ 33));
+var _index = _interopRequireDefault(__webpack_require__(/*! @/store/index.js */ 40));
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 // @ts-ignore
 wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;
 _vue.default.config.productionTip = false;
+
+// 挂载 api
+_vue.default.prototype.$api = _api.default;
+
+// 消息提示
+_vue.default.prototype.$toast = function (msg) {
+  uni.showToast({
+    title: msg,
+    icon: 'none'
+  });
+};
+
+// 页面加载提示
+_vue.default.prototype.$load = function (msg) {
+  uni.showLoading({
+    title: msg,
+    mask: false
+  });
+};
+// 页面加载结束提示
+_vue.default.prototype.$hide = function () {
+  uni.hideLoading();
+};
+
+// 路由跳转
+_vue.default.prototype.navigateTo = function (url) {
+  uni.navigateTo({
+    url: url
+  });
+};
+
+// 权限验证
+_vue.default.prototype.authJump = function (url) {
+  if (!_index.default.state.token) {
+    return uni.navigateTo({
+      url: '/pages/login/login'
+    });
+  }
+  if (!_index.default.state.user.phone) {
+    return uni.navigateTo({
+      url: '/pages/bind-phone/bind-phone'
+    });
+  }
+  uni.navigateTo({
+    url: url
+  });
+};
 _App.default.mpType = 'app';
-var app = new _vue.default(_objectSpread({}, _App.default));
+var app = new _vue.default(_objectSpread({
+  store: _index.default
+}, _App.default));
 createApp(app).$mount();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["createApp"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["createApp"]))
 
 /***/ }),
 
@@ -101,6 +152,8 @@ var _default = {
   onLaunch: function onLaunch() {
     console.warn('当前组件仅支持 uni_modules 目录结构 ，请升级 HBuilderX 到 3.1.0 版本以上！');
     console.log('App Launch');
+    // 调用初始化数据，防止刷新数据丢失
+    this.$store.dispatch('init');
   },
   onShow: function onShow() {
     console.log('App Show');

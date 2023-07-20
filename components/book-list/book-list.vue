@@ -50,19 +50,19 @@
 	.cource-one {
 		display: flex !important;
 		padding: 10px;
+	}
 
-		& .view-first {
-			flex-shrink: 1;
-			margin-right: 20rpx;
-		}
+	.cource-one .view-first {
+		flex-shrink: 1;
+		margin-right: 20rpx;
+	}
 
-		& .view-second {
-			width: 525rpx;
-		}
+	.cource-one .view-second {
+		width: 525rpx;
+	}
 
-		& .cource-image {
-			width: 185rpx;
-			height: 235px;
-		}
+	.cource-one .cource-image {
+		width: 185rpx;
+		height: 235px;
 	}
 </style>

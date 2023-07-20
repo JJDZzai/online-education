@@ -28,7 +28,7 @@
 		props: {
 			item: {
 				type: Object,
-				default: () => {}
+				default: () => ({})
 			},
 			colType: {
 				type: String,
@@ -98,11 +98,11 @@
 	.cource-one {
 		display: flex !important;
 		margin-top: 30rpx;
-
-		& .view-first {
-			flex-shrink: 1;
-			margin-right: 20rpx;
-		}
+	}
+	
+	.cource-one .view-first {
+		flex-shrink: 1;
+		margin-right: 20rpx;
 	}
 
 	.cource-two {

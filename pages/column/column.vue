@@ -8,7 +8,9 @@
 		<active-bar :price="activeData.data.price" :t_price="detail.price" :end_time="activeData.data.end_time"
 			v-if="activeData && !detail.isbuy">
 			<text v-if="activeData.type == 'group'">{{ activeData.data.p_num }}人拼团</text>
-			<text class="p"  v-else>{{ activeData.data.used_num }}人已抢 / 剩 {{ activeData.data.s_num - activeData.data.used_num }} 名</text>
+			<view class="p" v-else>{{ activeData.data.used_num }}人已抢 / 剩
+				{{ activeData.data.s_num - activeData.data.used_num }} 名
+			</view>
 		</active-bar>
 
 		<tab :current="current" :tabs="tabs" @change="handleChange"></tab>
@@ -42,6 +44,9 @@
 
 			<view class="divider"></view>
 
+			<!-- 拼单 -->
+			<group-work ref="groupWorkRef" @updateData="getData" v-if="!detail.isbuy"></group-work>
+
 			<uni-card title="专栏简介" is-full :border="false">
 				<mp-html :content="detail.content">
 					<view class="flex justify-center align-center text-light-muted">加载中...</view>
@@ -69,7 +74,7 @@
 		<template v-if="!detail.isbuy && firstLoading">
 			<view style="height: 75px;"></view>
 			<view class="fixed-bottom bg-white p-2 border-top">
-				<main-btn @submit="handleSubmit">{{ detail.price == 0 ? '立即学习' : '立即订购' + '￥' + detail.price}}</main-btn>
+				<main-btn @submit="handleSubmit">{{ btn}}</main-btn>
 			</view>
 		</template>
 	</view>
@@ -128,6 +133,22 @@
 		onShow() {
 			this.getData()
 		},
+		computed: {
+			btn() {
+				if (this.detail.group) {
+					return '立即拼团￥' + this.detail.group.price
+				}
+				if (this.detail.flashsale) {
+					return '立即秒杀￥' + this.detail.flashsale.price
+				}
+
+				if (this.detail.price == 0) {
+					return '立即学习'
+				} else {
+					return '立即订购￥' + this.detail.price
+				}
+			}
+		},
 		methods: {
 			getData() {
 				this.$api.getColumnDetail({
@@ -143,6 +164,8 @@
 							type: 'group',
 							data: res.group
 						}
+
+						this.$refs.groupWorkRef.init(this.group_id)
 					}
 
 					if (res.flashsale) {
@@ -177,6 +200,31 @@
 				this.authJump(`/pages/course-detail/course-detail?id=${item.id}&column_id=${this.detail.id}`)
 			},
 			handleSubmit() {
+				// 拼团
+				if (this.group_id) {
+					this.$load('发起拼团中...')
+
+					this.$api.createOrder({
+						group_id: this.group_id,
+					}, 'group').then(res => {
+						// H5支付，只在H5端生效
+						// #ifdef H5
+						let no = res.no
+						this.navigateTo('../H5pay/H5pay?no=' + no)
+						// #endif
+
+						// APP支付，只在APP端生效
+						// #ifdef APP-PLUS
+						tool.appPay(res.no, () => {
+							this.getData()
+						})
+						// #endif
+					}).finally(() => {
+						this.$hide()
+					})
+					return
+				}
+
 				if (this.detail.price == 0) {
 					this.$load('提交中...')
 					this.$api.learnNow({
@@ -191,6 +239,12 @@
 
 				let id = this.detail.id
 				let type = 'column'
+
+				if (this.detail.flashsale) {
+					id = this.flashsale_id
+					type = 'flashsale'
+				}
+
 				this.authJump(`../create-order/create-order?id=${id}&type=${type}`)
 			}
 		}

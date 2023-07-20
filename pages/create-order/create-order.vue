@@ -125,11 +125,23 @@
 			// H5 支付
 			handleSubmit() {
 				this.$load('订单创建中...')
-				this.$api.createOrder({
+
+				let data = {
 					goods_id: this.orderInfo.id,
 					type: this.type,
 					user_coupon_id: this.user_coupon_id
-				}).then(res => {
+				}
+
+				let type = 'sava'
+
+				if (this.type == 'flashsale') {
+					data = {
+						flashsale_id: this.id,
+					}
+					type = 'flashsale'
+				}
+
+				this.$api.createOrder(data, type).then(res => {
 					/* 进行支付，跳转到支付页面 */
 
 					// H5支付，只在H5端生效

@@ -110,18 +110,18 @@
 	page {
 		padding: 20rpx;
 		box-sizing: border-box;
+	}
 
-		& .coupon-left {
-			border-right: 2rpx dashed;
-		}
+	.coupon-left {
+		border-right: 2rpx dashed;
+	}
 
-		& .coupon-right {
-			width: 60px;
-		}
+	.coupon-right {
+		width: 60px;
+	}
 
-		& .coupon-text {
-			width: 250px;
-		}
+	.coupon-text {
+		width: 250px;
 	}
 
 	.coupon-used>view {

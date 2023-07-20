@@ -95,15 +95,15 @@
 
 	.home-main {
 		margin-top: -1rpx;
+	}
 
-		& .home-image {
-			width: 120rpx;
-			height: 120rpx;
-		}
+	.home-main .home-image {
+		width: 120rpx;
+		height: 120rpx;
+	}
 
-		& .home-icon {
-			font-size: 40rpx;
-			color: #00bfff;
-		}
+	.home-main .home-icon {
+		font-size: 40rpx;
+		color: #00bfff;
 	}
 </style>

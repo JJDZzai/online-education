@@ -33,26 +33,26 @@
 	.tab {
 		display: flex;
 		border-bottom: 1rpx solid #f4f4f4;
+	}
 
-		& .tab-item {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			flex: 1;
-			position: relative;
-			color: #888888;
-			padding: 20rpx;
+	.tab .tab-item {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		flex: 1;
+		position: relative;
+		color: #888888;
+		padding: 20rpx;
+	}
 
-			& .tab-line {
-				position: absolute;
-				bottom: 0;
-				width: 50rpx;
-				height: 10rpx;
-				background-color: #00CF8A;
-				border-radius: 10rpx;
-			}
-		}
+	.tab-item .tab-line {
+		position: absolute;
+		bottom: 0;
+		width: 50rpx;
+		height: 10rpx;
+		background-color: #00CF8A;
+		border-radius: 10rpx;
 	}
 
 	.tab-item-active {

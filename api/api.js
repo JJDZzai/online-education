@@ -254,8 +254,8 @@ export default {
 	},
 
 	// 创建订单
-	createOrder(data) {
-		return request.post("/mobile/order/save", data)
+	createOrder(data, type = "save") {
+		return request.post("/mobile/order/" + type, data)
 	},
 
 	// 微信app或小程序或H5支付订单
@@ -282,4 +282,14 @@ export default {
 	readLiveComment(params) {
 		return request.get("/mobile/live_comment", params)
 	},
+
+	// 当前拼团专栏or课程的可组团列表
+	getGroupWorkList(params) {
+		return request.get("/mobile/group_work/list", params)
+	},
+
+	// 微信app or 小程序 or H5登录
+	weixinLogin(data) {
+		return request.post("/mobile/weixin_login", data)
+	}
 }

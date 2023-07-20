@@ -48,7 +48,16 @@
 			</view>
 
 			<view class="login-section-wechat">
-				<uni-icons type="weixin" size="30" color="#00bfff"></uni-icons>
+				<!-- #ifndef MP -->
+				<uni-icons type="weixin" size="30" color="#00bfff" @click="wechatLogin"></uni-icons>
+				<!-- #endif -->
+
+				<!-- #ifdef MP -->
+				<button style="background-color: #FFFFFF; border: 0 !important;" type="default" open-type="getUserInfo"
+					@getuserinfo="wechatMpLogin">
+					<uni-icons type="weixin" size="30" color="#00bfff"></uni-icons>
+				</button>
+				<!-- #endif -->
 			</view>
 
 			<checkbox-group class="flex justify-center align-center" v-if="type == 'login'" @change="handleCheck">
@@ -62,6 +71,8 @@
 </template>
 
 <script>
+	import tool from '@/common/tool.js'
+
 	export default {
 		data() {
 			return {
@@ -77,7 +88,101 @@
 				}
 			}
 		},
+		onLoad() {
+			// #ifdef H5
+			// this.handleH5WechatLogin()
+			// #endif
+		},
 		methods: {
+			// H5登录
+			handleH5WechatLogin() {
+				// url中提取code
+				let code = tool.getUrlCode('code')
+
+				// 判断如果没有code才能进行登录，解决反复重定向
+				if (!code) {
+					tool.getH5Code()
+					return
+				}
+
+				this.$load('登录中...')
+				this.$api.weixinLogin({
+					type: 'h5',
+					code
+				}).then(user => {
+					this.handleLogin(user)
+				}).finally(() => {
+					this.$hide()
+				})
+			},
+			// APP登录
+			handleAppWechatLogin() {
+				uni.login({
+					provider: 'weixin',
+					success: (res) => {
+						let {
+							access_token,
+							openid
+						} = res.authResult
+						this.$load('登录中...')
+						this.$api.weixinLogin({
+							type: 'app',
+							access_token,
+							openid
+						}).then(user => {
+							this.handleLogin(user)
+						}).finally(() => {
+							this.$hide()
+						})
+					}
+				})
+			},
+			// 小程序登录
+			wechatMpLogin(e) {
+				if (!this.beforeLogin()) {
+					return
+				}
+
+				let rawData = e.detail.rawData
+				uni.login({
+					provider: 'weixin',
+					success: (res) => {
+						this.$load('登录中...')
+						this.$api.weixinLogin({
+							type: 'mp',
+							code: res.code,
+							rawData
+						}).then(user => {
+							this.handleLogin(user)
+						}).finally(() => {
+							this.$hide()
+						})
+					},
+				});
+			},
+			// 登录公共方法
+			handleLogin(user) {
+				this.$store.commit('LOGIN', user)
+				if (!user.phone) {
+					// 重定向到绑定手机号页面
+					uni.redirectTo({
+						url: '../bind-phone/bind-phone'
+					})
+					return
+				}
+				this.$toast('登录成功')
+				setTimeout(() => {
+					// #ifdef H5
+					uni.switchTab({
+						url: '/pages/tabbar/home/home'
+					})
+					// #endif
+
+					// #ifndef H5
+					this.handleBack()
+					// #endif
+				}, 350)
+			},
 			changeShowpwd() {
 				if (this.showPwd) {
 					this.showPwd = false
@@ -107,10 +212,17 @@
 					repassword: "",
 				}
 			},
-			submit() {
-				// 判断协议是否勾选
+			// 判断协议是否勾选
+			beforeLogin() {
 				if (!this.confirm && this.type == 'login') {
-					return this.$toast('请先阅读并同意用户协议&隐私声明')
+					this.$toast('请先阅读并同意用户协议&隐私声明')
+					return false
+				}
+				return true
+			},
+			submit() {
+				if (!this.beforeLogin()) {
+					return
 				}
 
 				uni.showLoading({
@@ -153,6 +265,19 @@
 			handleCheck(e) {
 				this.confirm = !!e.detail.value.length
 			},
+			// 微信登录
+			wechatLogin() {
+				if (!this.beforeLogin()) {
+					return
+				}
+				// #ifdef H5
+				tool.getH5Code()
+				// #endif
+
+				// #ifdef APP-PLUS
+				this.handleAppWechatLogin()
+				// #endif
+			},
 			goRead() {
 				uni.navigateTo({
 					url: './agreement/agreement',
@@ -169,5 +294,9 @@
 		right: 0;
 		width: 100rpx;
 		height: 100rpx;
+	}
+
+	button::after {
+		border: none;
 	}
 </style>

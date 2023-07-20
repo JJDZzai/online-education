@@ -74,17 +74,17 @@
 		height: 50px;
 		background-color: #FFFFFF;
 		border-top: 1rpx solid #ccc;
+	}
 
-		& view {
-			flex: 1;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-		}
+	.test-actions view {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
 
-		& .iconfont {
-			font-size: 40rpx;
-		}
+	.test-actions .iconfont {
+		font-size: 40rpx;
 	}
 </style>

@@ -64,14 +64,14 @@
 	.coupon {
 		display: inline-flex;
 		min-width: 310rpx;
+	}
 
-		& .coupon-left {
-			border-right: 2rpx dashed;
-		}
+	.coupon .coupon-left {
+		border-right: 2rpx dashed;
+	}
 
-		& .coupon-right {
-			width: 120rpx;
-		}
+	.coupon .coupon-right {
+		width: 120rpx;
 	}
 
 	.coupon-isget>view:first-child {

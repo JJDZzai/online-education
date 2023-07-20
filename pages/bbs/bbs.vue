@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 帖子滚动列表 -->
-		<scroll-view class="px-2 pt-2 scroll-row" scroll-x="true" @scrolltolower="" handleLoad>
+		<scroll-view class="px-2 pt-2 scroll-row" scroll-x="true" @scrolltolower="handleLoad">
 			<view class="font-sm border rounded px-3 py-1 mr-1 mb-2 scroll-row-item"
 				:class="activeIndex == index ? 'text-white bg-main' : 'text-muted bg-light'"
 				v-for="(item, index) in bbslist" :key="index" @click="changeBbs(index)">

@@ -169,7 +169,7 @@
 				if (cont == '') {
 					return this.$toast('评论内容不能为空')
 				}
-				
+
 				let data = {
 					post_id: this.detail.id,
 					content,
@@ -196,30 +196,30 @@
 		width: 100%;
 		padding: 30rpx;
 		box-sizing: border-box;
+	}
 
-		& image {
-			flex-shrink: 0;
-			width: 75rpx;
-			height: 75rpx;
-			border-radius: 100%;
-			margin-right: 20rpx;
-			background-color: #EEEEEE;
-		}
+	.comment-list image {
+		flex-shrink: 0;
+		width: 75rpx;
+		height: 75rpx;
+		border-radius: 100%;
+		margin-right: 20rpx;
+		background-color: #EEEEEE;
+	}
 
-		& .nickname {
-			color: #007bff;
-			font-weight: bold;
-		}
+	.comment-list .nickname {
+		color: #007bff;
+		font-weight: bold;
+	}
 
-		& .content {
-			color: #6c757d;
-			font-size: 30rpx;
-			padding: 8rpx 0;
-		}
+	.comment-list .content {
+		color: #6c757d;
+		font-size: 30rpx;
+		padding: 8rpx 0;
+	}
 
-		& .date {
-			color: #A9A5A0;
-			font-size: 30rpx;
-		}
+	.comment-list .date {
+		color: #A9A5A0;
+		font-size: 30rpx;
 	}
 </style>

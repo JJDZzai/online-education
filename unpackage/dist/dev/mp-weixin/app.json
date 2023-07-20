@@ -1,14 +1,69 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/tabbar/index/index",
+    "pages/tabbar/study/study",
+    "pages/tabbar/home/home",
+    "pages/login/login",
+    "pages/login/agreement/agreement",
+    "pages/bind-phone/bind-phone",
+    "pages/forget-pwd/forget-pwd",
+    "pages/setting/setting",
+    "pages/my-coupon/my-coupon",
+    "pages/user-safe/user-safe",
+    "pages/user-info/user-info",
+    "pages/order-list/order-list",
+    "pages/search/search",
+    "pages/search-result/search-result",
+    "pages/course-detail/course-detail",
+    "pages/column/column",
+    "pages/test-list/test-list",
+    "pages/test-detail/test-detail",
+    "pages/my-test/my-test",
+    "pages/bbs/bbs",
+    "pages/add-post/add-post",
+    "pages/post-detail/post-detail",
+    "pages/my-post/my-post",
+    "pages/book/book",
+    "pages/book-detail/book-detail",
+    "pages/book-column/book-column",
+    "pages/mes-list/mes-list",
+    "pages/collect-list/collect-list",
+    "pages/list/list",
+    "pages/create-order/create-order",
+    "pages/H5pay/H5pay",
+    "pages/live/live"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "在线教育",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#FFFFFF"
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "tabBar": {
+    "color": "#BBBAC7",
+    "selectedColor": "#2C2C2C",
+    "borderStyle": "black",
+    "list": [
+      {
+        "iconPath": "static/tabbar/index.png",
+        "selectedIconPath": "static/tabbar/index_selected.png",
+        "pagePath": "pages/tabbar/index/index",
+        "text": "首页"
+      },
+      {
+        "iconPath": "static/tabbar/study.png",
+        "selectedIconPath": "static/tabbar/study_selected.png",
+        "pagePath": "pages/tabbar/study/study",
+        "text": "学习"
+      },
+      {
+        "iconPath": "static/tabbar/home.png",
+        "selectedIconPath": "static/tabbar/home_selected.png",
+        "pagePath": "pages/tabbar/home/home",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {}
 }

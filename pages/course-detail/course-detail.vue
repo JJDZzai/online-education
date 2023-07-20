@@ -51,6 +51,9 @@
 
 			<view class="divider"></view>
 
+			<!-- 拼单 -->
+			<group-work ref="groupWorkRef" @updateData="getData" v-if="detail.isbuy"></group-work>
+
 			<uni-card :title="(detail.isbuy && detail.type == 'media') ? '课程内容' : '课程介绍'" is-full :border="false">
 				<view id="media">
 					<mp-html :content="(detail.isbuy && detail.type == 'media') ? detail.content : detail.try"
@@ -63,8 +66,7 @@
 			<template v-if="!detail.isbuy && firstLoading">
 				<view style="height: 75px;"></view>
 				<view class="fixed-bottom bg-white p-2 border-top">
-					<main-btn
-						@submit="handleSubmit">{{ detail.price == 0 ? '立即学习' : '立即订购' + '￥' + detail.price}}</main-btn>
+					<main-btn @submit="handleSubmit">{{ btn }}</main-btn>
 				</view>
 			</template>
 		</view>
@@ -72,6 +74,8 @@
 </template>
 
 <script>
+	import tool from '@/common/tool.js'
+
 	// 窗口高度
 	let windowHeight = uni.getSystemInfoSync().windowHeight
 	export default {
@@ -137,6 +141,22 @@
 		beforeDestroy() {
 			this.updateUserHistory()
 		},
+		computed: {
+			btn() {
+				if (this.detail.group) {
+					return '立即拼团￥' + this.detail.group.price
+				}
+				if (this.detail.flashsale) {
+					return '立即秒杀￥' + this.detail.flashsale.price
+				}
+
+				if (this.detail.price == 0) {
+					return '立即学习'
+				} else {
+					return '立即订购￥' + this.detail.price
+				}
+			}
+		},
 		methods: {
 			getData() {
 				this.$api.getCourseDetail({
@@ -152,6 +172,8 @@
 							type: 'group',
 							data: res.group
 						}
+
+						this.$refs.groupWorkRef.init(this.group_id)
 					}
 
 					if (res.flashsale) {
@@ -229,6 +251,31 @@
 				this.$api.updateUserhistory(data)
 			},
 			handleSubmit() {
+				// 拼团
+				if (this.group_id) {
+					this.$load('发起拼团中...')
+
+					this.$api.createOrder({
+						group_id: this.group_id,
+					}, 'group').then(res => {
+						// H5支付，只在H5端生效
+						// #ifdef H5
+						let no = res.no
+						this.navigateTo('../H5pay/H5pay?no=' + no)
+						// #endif
+
+						// APP支付，只在APP端生效
+						// #ifdef APP-PLUS
+						tool.appPay(res.no, () => {
+							this.getData()
+						})
+						// #endif
+					}).finally(() => {
+						this.$hide()
+					})
+					return
+				}
+
 				if (this.detail.price == 0) {
 					this.$load('提交中...')
 					this.$api.learnNow({
@@ -243,6 +290,12 @@
 
 				let id = this.detail.id
 				let type = 'course'
+				
+				if (this.detail.flashsale) {
+					id = this.flashsale_id
+					type = 'flashsale'
+				}
+				
 				this.authJump(`../create-order/create-order?id=${id}&type=${type}`)
 			}
 		}

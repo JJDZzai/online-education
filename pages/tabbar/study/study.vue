@@ -7,7 +7,7 @@
 		<swiper :current="current" :duration="200" class="flex-1 px-2" v-if="token" @change="swiperChange">
 			<swiper-item class="flex" v-for="(t, index) in tabs" :key="index">
 				<scroll-view scroll-y="true" class="flex-1" @scrolltolower="handleLoadMore(t)">
-					<course-list colType="one" v-for="(item, index) in t.list" :key="index" :item="item">
+					<course-list colType="one" v-for="(item, tI) in t.list" :key="tI" :item="item">
 						<text class="font-sm text-light-muted my-1" slot="desc">学习进度</text>
 						<view class="flex flex-1 align-end" slot="footer">
 							<text class="font-sm text-danger mr-1" v-if="index == 0">最近学习</text>

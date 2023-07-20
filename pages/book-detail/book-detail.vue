@@ -152,7 +152,7 @@
 						this.$hide()
 					})
 				}
-				
+
 				let id = this.detail.id
 				let type = 'book'
 				this.authJump(`../create-order/create-order?id=${id}&type=${type}`)
@@ -182,19 +182,19 @@
 	.cource-one {
 		display: flex !important;
 		padding: 10px;
+	}
 
-		& .view-first {
-			flex-shrink: 1;
-			margin-right: 20rpx;
-		}
+	.cource-one .view-first {
+		flex-shrink: 1;
+		margin-right: 20rpx;
+	}
 
-		& .view-second {
-			width: 525rpx;
-		}
+	.cource-one .view-second {
+		width: 525rpx;
+	}
 
-		& .cource-image {
-			width: 258rpx;
-			height: 380px;
-		}
+	.cource-one .cource-image {
+		width: 258rpx;
+		height: 380px;
 	}
 </style>

@@ -5,7 +5,7 @@
 		<swiper :current="current" :duration="200" class="flex-1 px-2" @change="swiperChange">
 			<swiper-item class="flex" v-for="(t, index) in tabs" :key="index">
 				<scroll-view scroll-y="true" class="flex-1" @scrolltolower="handleLoadMore(t)">
-					<course-list colType="one" v-for="(item, index) in t.list" :key="index" :item="item"></course-list>
+					<course-list colType="one" v-for="(item, tI) in t.list" :key="tI" :item="item"></course-list>
 					<uni-load-more :status="t.loadStatus"></uni-load-more>
 				</scroll-view>
 			</swiper-item>

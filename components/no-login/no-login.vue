@@ -28,10 +28,10 @@
 		right: 0;
 		bottom: 0;
 		left: 0;
-
-		& image {
-			width: 350rpx;
-			height: 350rpx;
-		}
+	}
+	
+	.no-login image {
+		width: 350rpx;
+		height: 350rpx;
 	}
 </style>

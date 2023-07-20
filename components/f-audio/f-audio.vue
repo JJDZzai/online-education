@@ -170,11 +170,9 @@
 		border-radius: 20rpx;
 	}
 
-	.f-audio-slider {
-		& .f-audio-time {
-			margin-top: -10rpx;
-			margin-bottom: 30rpx;
-		}
+	.f-audio-slider .f-audio-time {
+		margin-top: -10rpx;
+		margin-bottom: 30rpx;
 	}
 
 	.f-audio-Player>text:nth-child(1),

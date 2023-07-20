@@ -33,11 +33,11 @@
 			}
 
 			// url中提取code
-			let code = getUrlCode('code')
+			let code = tool.getUrlCode('code')
 
 			// 判断如果没有code才能进行登录，解决反复重定向
 			if (!code) {
-				this.getH5Code()
+				tool.getH5Code()
 				return
 			}
 
@@ -60,7 +60,7 @@
 				//TODO handle the exception
 				// 处理一些事情，code失效，重新调用一下
 				if (err.indexOf('code been used') != -1) {
-					this.getH5Code()
+					tool.getH5Code()
 				} else {
 					this.status = 'fail'
 					this.$toast(err)
@@ -68,28 +68,6 @@
 			}
 		},
 		methods: {
-			// 微信H5登录获取code
-			getH5Code() {
-				// 微信公众号的appid
-				let appid = 'wxf0d98abcc66aab61'
-				let href = window.location.href
-				if (href.indexOf('?code') != -1) {
-					let h = href.split('#/')
-					h[0] = window.location.protocol + "//" + window.location.host
-					href = h[0] + '/#/' + h[1]
-				}
-				let local = encodeURIComponent(href);
-				const url =
-					`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${local}&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect`;
-				location.href = url
-			},
-			// 从url中提取code防止微信H5登录获取code反复从定向
-			getUrlCode(name) {
-				return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) ||
-					[, ''
-					])[1]
-					.replace(/\+/g, '%20')) || null
-			},
 			// H5支付
 			wxH5Pay(data, callback) {
 				/**
