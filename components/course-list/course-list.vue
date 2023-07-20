@@ -1,5 +1,5 @@
 <template>
-	<view class="scroll-row-item" :class="'cource-' + this.colType" @click="handleDetail">
+	<view class="scroll-row-item" :class="'cource-' + colType" @click="handleDetail">
 		<view class="view-first position-relative">
 			<image class="cource-image" :src="item.cover" mode="widthFix"></image>
 			<text class="cource-text text-white font-sm mb-1" v-if="item.type">{{ item.type | formatType }}</text>

@@ -45,6 +45,6 @@
 	.icons-card-iconfont {
 		font-size: 40rpx;
 		color: #00bfff;
-		margin-bottom: 10rpx;
+		margin-bottom: 20rpx;
 	}
 </style>

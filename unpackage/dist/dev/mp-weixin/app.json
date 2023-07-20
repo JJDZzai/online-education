@@ -31,7 +31,9 @@
     "pages/list/list",
     "pages/create-order/create-order",
     "pages/H5pay/H5pay",
-    "pages/live/live"
+    "pages/live/live",
+    "pages/webview/webview",
+    "pages/my-book/my-book"
   ],
   "subPackages": [],
   "window": {

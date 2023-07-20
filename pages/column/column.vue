@@ -214,7 +214,7 @@
 						// #endif
 
 						// APP支付，只在APP端生效
-						// #ifdef APP-PLUS
+						// #ifdef APP-PLUS || MP
 						tool.appPay(res.no, () => {
 							this.getData()
 						})

@@ -14,7 +14,7 @@
 					</view>
 					<!-- v-if="item.status == 'pendding'" -->
 					<view class="payment">
-						<button type="default" @click="pay(item.no)">立即支付</button>
+						<button type="default" size="small" @click="pay(item.no)">立即支付</button>
 					</view>
 				</view>
 			</uni-card>
@@ -76,8 +76,8 @@
 				this.navigateTo('../H5pay/H5pay?no=' + no)
 				// #endif
 
-				// APP支付，只在APP端生效
-				// #ifdef APP-PLUS
+				// APP和小程序支付
+				// #ifdef APP-PLUS || MP
 				tool.appPay(no, () => {
 					this.page = 1
 					this.getData()
@@ -93,7 +93,6 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		width: 170rpx;
 		font-size: 14px;
 		color: #FFFFFF;
 		background-color: #00bfff;

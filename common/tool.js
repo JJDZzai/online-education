@@ -109,14 +109,14 @@ export default {
 
 	// APP支付
 	async appPay(no, success = false, fail = false) {
+		// #ifdef APP-PLUS
 		let orderInfo = await $api.wxpay({
 			no,
 			type: 'app'
 		})
-
 		uni.requestPayment({
-			"provider": "wxpay",
-			"orderInfo": orderInfo,
+			provider: "wxpay",
+			orderInfo: orderInfo,
 			success: (resp) => {
 				this.$toast('支付成功')
 				if (success && typeof success == 'function') {
@@ -133,6 +133,47 @@ export default {
 				}
 			}
 		})
+		// #endif
+
+		// #ifdef MP
+		let [err, e] = await uni.login({
+			provider: "wxpay",
+		})
+		if (err) {
+			return uni.showModal({
+				content: err.errMsg,
+				showCancel: false
+			});
+		}
+		let code = e.code
+		let orderInfo = await $api.wxpay({
+			type: 'mp',
+			no,
+			code
+		})
+		// 仅作为示例，非真实参数信息。
+		uni.requestPayment({
+			provider: 'wxpay',
+			timeStamp: orderInfo.timeStamp,
+			nonceStr: orderInfo.nonceStr,
+			package: orderInfo.package,
+			signType: orderInfo.signType,
+			paySign: orderInfo.paySign,
+			success: (res) => {
+				this.$toast('支付成功')
+				if (success && typeof success == 'function') {
+					success()
+				}
+			},
+			fail: function(err) {
+				uni.showModal({
+					content: '支付失败，原因是：' + err.errMsg,
+					showCancel: false
+				});
+			}
+		});
+
+		// #endif
 	},
 	// 微信H5登录获取code
 	getH5Code() {
@@ -152,7 +193,8 @@ export default {
 	// 从url中提取code防止微信H5登录获取code反复从定向
 	getUrlCode(name) {
 		return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [,
-				''])[1]
+				''
+			])[1]
 			.replace(/\+/g, '%20')) || null
 	},
 }

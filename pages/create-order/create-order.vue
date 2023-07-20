@@ -150,8 +150,8 @@
 					this.navigateTo('../H5pay/H5pay?no=' + no)
 					// #endif
 
-					// APP支付，只在APP端生效
-					// #ifdef APP-PLUS
+					// APP和小程序支付
+					// #ifdef APP-PLUS || MP
 					tool.appPay(res.no, () => {
 						uni.navigateBack({
 							delta: 1
