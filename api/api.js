@@ -291,5 +291,10 @@ export default {
 	// 微信app or 小程序 or H5登录
 	weixinLogin(data) {
 		return request.post("/mobile/weixin_login", data)
-	}
+	},
+	
+	// 我购买的电子书列表
+	myBookList(params) {
+		return request.get("/mobile/mybook", params)
+	},
 }

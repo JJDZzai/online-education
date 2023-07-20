@@ -30,15 +30,21 @@
 					return
 				}
 				this.authJump(item.path)
+
+				if (item.type == 'switch') {
+					uni.switchTab({
+						url: item.path
+					})
+				}
 			}
 		}
 	}
 </script>
 
 <style>
-.icons-card-iconfont {
-	font-size: 40rpx;
-	color: #00bfff;
-	margin-bottom: 10rpx;
-}
+	.icons-card-iconfont {
+		font-size: 40rpx;
+		color: #00bfff;
+		margin-bottom: 10rpx;
+	}
 </style>

@@ -68,7 +68,9 @@
 					path: "/pages/collect-list/collect-list"
 				}, {
 					icon: "icon-e-learning-monitor",
-					name: "在学"
+					name: "在学",
+					path: "/pages/tabbar/study/study",
+					type: 'switch'
 				}]
 			}
 		},

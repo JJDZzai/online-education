@@ -7,13 +7,17 @@
 			<text class="font-md text-ellipsis mt-1">{{ item.title }}</text>
 			<text class="font-sm text-light-muted my-1" v-if="item.try" v-html="item.try"></text>
 			<view class="flex flex-1 align-end">
-				<text class="font-md text-danger" v-if="item.price == 0">免费</text>
-				<text class="font-md text-danger" v-else>￥{{item.price}}</text>
-				<text class="font-sm text-light-muted text-through ml-1">￥{{ item.t_price }}</text>
-				<view class="flex justify-center align-center ml-auto mr-2 border rounded-circle p-1" @click.stop>
-					<text class="font">{{ item.sub_count }}人订阅</text>
-					<text class="iconfont icon-xiayibu ml-1"></text>
-				</view>
+				<slot>
+					<text class="font-md text-danger" v-if="item.price == 0">免费</text>
+					<text class="font-md text-danger" v-else>￥{{item.price}}</text>
+					<text class="font-sm text-light-muted text-through ml-1">￥{{ item.t_price }}</text>
+					<view class="flex justify-center align-center ml-auto mr-2 border rounded-circle p-1" v-if="issub"
+						@click.stop>
+						<text class="font">{{ item.sub_count }}人订阅</text>
+						<text class="iconfont icon-xiayibu ml-1"></text>
+					</view>
+				</slot>
+
 			</view>
 		</view>
 	</view>
@@ -36,6 +40,11 @@
 			return {
 
 			};
+		},
+		computed: {
+			issub() {
+				return typeof this.item.sub_count == 'number'
+			}
 		},
 		methods: {
 			handleDetail() {

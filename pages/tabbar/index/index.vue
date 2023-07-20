@@ -12,7 +12,8 @@
 				<!-- 轮播图 -->
 				<swiper v-else-if="temp.type == 'swiper'" :indicator-dots="true" :autoplay="true" :interval="3000"
 					:duration="1000">
-					<swiper-item class="flex justify-center" v-for="(swiper, sI) in temp.data" :key="sI">
+					<swiper-item class="flex justify-center" v-for="(swiper, sI) in temp.data" :key="sI"
+						@click="handleSwiper(swiper)">
 						<image :src="swiper.src" mode="aspectFill" class="swiper-item-image rounded shadow">
 						</image>
 					</swiper-item>
@@ -51,7 +52,7 @@
 				<view v-else-if="temp.type == 'imageAd'">
 					<!-- 分割线 -->
 					<view class="divider"></view>
-					<image class="footer-image" :src="temp.data" mode="aspectFill"></image>
+					<image class="footer-image" :src="temp.data" mode="aspectFill" @click="handleAdv(temp)"></image>
 				</view>
 			</block>
 		</view>
@@ -100,10 +101,20 @@
 					this.$refs.couponRef[0].getData()
 				}
 			},
+			handleSwiper(swiper) {
+				if (swiper.type == 'webview') {
+					this.navigateTo('/pages/webview/webview?url=' + swiper.url)
+				} else {
+					this.navigateTo('/pages/course-detail/course-detail?id=' + swiper.course_id)
+				}
+			},
 			// 列表页
 			openList() {
 				this.navigateTo('../../list/list?module=course')
-			}
+			},
+			handleAdv(temp) {
+				location.href = 'http://www.dishaxy.com'
+			},
 		}
 	}
 </script>
