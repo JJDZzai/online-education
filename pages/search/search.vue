@@ -1,5 +1,9 @@
 <template>
 	<view>
+		<!-- #ifdef MP -->
+		<applet-search v-model="keyword" @confirm="handleSearchEvent"></applet-search>
+		<!-- #endif -->
+
 		<view v-if="list.length">
 			<view class="flex justify-between align-center py-3 px-2">
 				<text class="font font-weight-bold">历史记录</text>
@@ -52,7 +56,7 @@
 				if (value) {
 					this.keyword = value
 				}
-				
+
 				if (this.keyword == '') {
 					return this.$toast('搜索关键字不能为空')
 				}

@@ -83,7 +83,7 @@
 						if (res.cancel) {
 							return
 						}
-						this.navigateTo('../test-detail/test-detail?id=' + id)
+						this.authJump('../test-detail/test-detail?id=' + id)
 					}
 				});
 			}

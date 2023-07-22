@@ -5,6 +5,20 @@
 		<view id="video"></view>
 		<!-- #endif -->
 
+		<!-- #ifdef APP-PLUS -->
+		<video id="video" style="width: 750rpx; height: 420rpx;" :src="detail.playUrl" controls autoplay danmu-btn
+			enable-danmu :danmu-list="appBarrageList" v-if="showAppVideo"></video>
+
+		<view class="flex justify-center align-center bg-dark" style="width: 750rpx; height: 420rpx;" v-else>
+			<text class="font text-white">加载中...</text>
+		</view>
+		<!-- #endif -->
+
+		<!-- #ifdef MP -->
+		<live-player :src="detail.playUrl" autoplay @statechange="statechange" @error="error"
+			style="width: 750rpx; height: 420rpx;" />
+		<!-- #endif -->
+
 		<!-- 滚动视图 -->
 		<scroll-view class="bg-light" :style="'height: '+ scrollH +'px;'" scroll-y="true"
 			:scroll-into-view="scrollInto">
@@ -52,7 +66,11 @@
 				// 评论滚动
 				scrollInto: '',
 				// 弹幕出现时间，毫秒
-				currentTime: 0
+				currentTime: 0,
+				// APP 弹幕
+				appBarrageList: [],
+				showAppVideo: false
+
 			};
 		},
 		created() {
@@ -81,13 +99,31 @@
 					live_id: this.item.id
 				}).then(res => {
 					// #ifdef H5
-					this.initVideo(res.rows)
+					this.initH5Video(res.rows)
 					// #endif	
+
+					// #ifdef APP-PLUS
+					this.initAppVideo(res.rows)
+					// #endif
+				})
+			},
+			// APP 弹幕
+			initAppVideo(comments = []) {
+				this.appBarrageList = comments.map(r => {
+					return {
+						text: `${r.name}: ${r.content}`, //弹幕文字内容
+						color: r.color, //该条弹幕为彩色弹幕，默认false
+						time: parseInt(r.time / 1000)
+					}
+				})
+				this.showAppVideo = true
+				this.$nextTick(() => {
+					this.videoPlayer = uni.createVideoContext('video', this)
 				})
 			},
 
-			// 初始化播放器
-			initVideo(comments = []) {
+			// H5 弹幕
+			initH5Video(comments = []) {
 				// 处理弹幕格式
 				comments = comments.map(r => {
 					return {
@@ -171,7 +207,7 @@
 						this.scrollInto = 'live_' + res.id
 					}, 300)
 
-					// 同步弹幕到视频中
+					// 同步弹幕到H5视频中
 					// #ifdef H5
 					this.videoPlayer.danmu.sendComment({
 						duration: 5000, //弹幕持续显示时间,毫秒(最低为5000毫秒)
@@ -188,10 +224,27 @@
 						},
 					})
 					// #endif
+
+					// 同步弹幕到APP视频中
+					// #ifdef APP-PLUS
+					this.videoPlayer.sendDanmu({
+						text: `${res.name}: ${res.content}`,
+						color: color: res.color,
+					})
+					// #endif
 				}).finally(() => {
 					this.$hide()
 				})
+			},
+			// 小程序播放器方法
+			// #ifdef MP
+			statechange(e) {
+				console.log('live-player code:', e.detail.code)
+			},
+			error(e) {
+				console.error('live-player error:', e.detail.errMsg)
 			}
+			// #endif
 		}
 	}
 </script>

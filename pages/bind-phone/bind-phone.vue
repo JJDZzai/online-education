@@ -1,7 +1,9 @@
 <template>
 	<view>
 		<view>
+			<!-- #ifndef MP -->
 			<uni-icons class="login-icon" type="left" size="20" color="#FFFFFF" @click="handleBack"></uni-icons>
+			<!-- #endif -->
 
 			<view class="login-bg"></view>
 		</view>

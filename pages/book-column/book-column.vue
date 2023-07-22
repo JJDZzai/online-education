@@ -11,17 +11,19 @@
 		</uni-drawer>
 
 		<uni-card is-full :border="false">
-			<mp-html :content="chapter.content">
-				<view class="flex justify-center align-center text-light-muted">加载中...</view>
+			<mp-html class="flex justify-center align-center text-light-muted" :content="chapter.content">
+				加载中...
 			</mp-html>
 		</uni-card>
 
-		<test-actions :current="current" :total="total" show @on-page="onPage"
-			@open="handleOpen"></test-actions>
+		<test-actions :current="current" :total="total" show @on-page="onPage" @open="handleOpen"></test-actions>
 	</view>
 </template>
 
 <script>
+	import {
+		setTimeout
+	} from 'timers'
 	export default {
 		onLoad(e) {
 			if (!e.id || !e.book_id) {
@@ -57,15 +59,29 @@
 					uni.setNavigationBarTitle({
 						title: res.title
 					})
+
+					this.total = this.chapter.menus.length
+
+					if (this.chapter.content == '') {
+						this.chapter.content = '暂无内容'
+					}
+
 					if (this.chapter.menus.length == 0) {
 						this.$toast('该章节没有内容')
 						this.back()
 					}
-					
-					this.total = this.chapter.menus.length
 
 					let index = this.chapter.menus.findIndex(m => m.id == this.id)
 					this.current = index + 1
+				}).catch(err => {
+					this.chapter.content = err
+					if (err == '请先购买该电子书') {
+						setTimeout(() => {
+							uni.navigateBack({
+								delta: 1
+							});
+						}, 700)
+					}
 				}).finally(() => {
 					this.$hide()
 				})

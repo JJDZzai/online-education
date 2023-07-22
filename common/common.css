@@ -39,7 +39,7 @@
 	justify-content: center;
 	align-items: center;
 	position: fixed;
-	top: 0;
+	top: var(--status-bar-height);
 	left: 0;
 	width: 100rpx;
 	height: 100rpx;

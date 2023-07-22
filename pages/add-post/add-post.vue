@@ -1,5 +1,11 @@
 <template>
 	<view>
+		<!-- #ifdef MP -->
+		<applet-post-btn @jump="handlePublish">
+			<uni-icons type="paperplane" size="20" color="#FFFFFF"></uni-icons>
+		</applet-post-btn>
+		<!-- #endif -->
+
 		<picker mode="selector" :range="menus" @change="handleChange">
 			<view class="p-2">
 				<button style="width: 100%;" type="default"
@@ -31,7 +37,8 @@
 				activeIndex: -1,
 				form: [{
 					text: '第一个帖子',
-					images: ['http://demo-mp3.oss-cn-shenzhen.aliyuncs.com/egg-edu-demo/e04bb1b1928b720284d5.jpg']
+					// http://demo-mp3.oss-cn-shenzhen.aliyuncs.com/egg-edu-demo/e04bb1b1928b720284d5.jpg
+					images: []
 				}],
 				// 左上角返回按钮返回
 				isBack: false
@@ -48,29 +55,8 @@
 				})
 			})
 		},
-		onNavigationBarButtonTap(e) {
-			if (!this.BeforePublish()) {
-				return
-			}
-
-			if (this.activeIndex == -1) {
-				this.$toast('请先选择社区')
-			}
-			this.$load('发布中...')
-			this.$api.postSave({
-				bbs_id: this.menusId[this.activeIndex],
-				content: this.form
-			}).then(res => {
-				this.$toast('发布成功')
-				setTimeout(() => {
-					uni.navigateBack({
-						delta: 1
-					})
-				}, 500)
-				uni.$emit('refreshBbs')
-			}).finally(() => {
-				this.$hide()
-			})
+		onNavigationBarButtonTap() {
+			this.handlePublish()
 		},
 		onBackPress() {
 			if (this.isBack) {
@@ -118,6 +104,31 @@
 						this.form.splice(index, 1)
 					}
 				});
+			},
+			// 发布方法
+			handlePublish() {
+				if (!this.BeforePublish()) {
+					return
+				}
+
+				if (this.activeIndex == -1) {
+					this.$toast('请先选择社区')
+				}
+				this.$load('发布中...')
+				this.$api.postSave({
+					bbs_id: this.menusId[this.activeIndex],
+					content: this.form
+				}).then(res => {
+					this.$toast('发布成功')
+					setTimeout(() => {
+						uni.navigateBack({
+							delta: 1
+						})
+					}, 500)
+					uni.$emit('refreshBbs')
+				}).finally(() => {
+					this.$hide()
+				})
 			},
 			// upload-image 传递过来的事件
 			handleUploadImage(e, item) {

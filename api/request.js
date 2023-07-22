@@ -39,7 +39,7 @@ export default {
 						icon: 'none'
 					});
 
-					if (res.data.data == 'Token 令牌不合法，请重新登录') {
+					if (res.data.data == 'Token 令牌不合法，请重新登录' || res.data.data == '您没有权限访问该接口!') {
 						// 这里调用退出登录方法是为了在 token 过期时清除本地存储，退出重新登录
 						store.commit('LOGOUT')
 

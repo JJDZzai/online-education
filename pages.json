@@ -112,6 +112,9 @@
 						"fontSize": "15px"
 					}]
 				}
+			},
+			"mp-weixin": {
+				"navigationStyle": "custom"
 			}
 		}
 
@@ -187,6 +190,9 @@
 						"float": "right"
 					}]
 				}
+			},
+			"mp-weixin": {
+				"navigationStyle": "custom"
 			}
 		}
 	}, {

@@ -1,5 +1,12 @@
 <template>
 	<view>
+		<!-- #ifdef MP -->
+		<applet-search v-model="postQuery.keyword" @confirm="refresh"></applet-search>
+		<applet-post-btn @jump="handleJump">
+			<uni-icons type="plus" size="20" color="#FFFFFF"></uni-icons>
+		</applet-post-btn>
+		<!-- #endif -->
+
 		<!-- 帖子滚动列表 -->
 		<scroll-view class="px-2 pt-2 scroll-row" scroll-x="true" @scrolltolower="handleLoad">
 			<view class="font-sm border rounded px-3 py-1 mr-1 mb-2 scroll-row-item"
@@ -76,7 +83,7 @@
 			this.refresh()
 		},
 		onNavigationBarButtonTap() {
-			this.navigateTo('../add-post/add-post')
+			this.handleJump()
 		},
 		methods: {
 			// 社区列表
@@ -142,6 +149,9 @@
 				this.postData().finally(() => {
 					uni.stopPullDownRefresh()
 				})
+			},
+			handleJump() {
+				this.authJump('../add-post/add-post')
 			},
 			// 点赞
 			handleSupport(id) {

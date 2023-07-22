@@ -107,7 +107,7 @@ export default {
 		return String(navigator.userAgent.toLowerCase().match(/MicroMessenger/i)) === "micromessenger"
 	},
 
-	// APP支付
+	// APP和小程序支付
 	async appPay(no, success = false, fail = false) {
 		// #ifdef APP-PLUS
 		let orderInfo = await $api.wxpay({
@@ -172,7 +172,6 @@ export default {
 				});
 			}
 		});
-
 		// #endif
 	},
 	// 微信H5登录获取code

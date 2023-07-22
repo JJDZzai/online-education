@@ -1,5 +1,9 @@
 <template>
 	<view>
+		<!-- #ifdef APP-PLUS -->
+		<uni-search-bar bgColor="#FFFFFF"></uni-search-bar>	
+		<!-- #endif -->
+		
 		<!-- 骨架屏组件，首屏优化 -->
 		<index-skeleton v-if="loading"></index-skeleton>
 
