@@ -6,7 +6,7 @@
 		<!-- #endif -->
 
 		<!-- #ifdef APP-PLUS -->
-		<video id="video" style="width: 750rpx; height: 420rpx;" :src="detail.playUrl" controls autoplay danmu-btn
+		<video id="video" style="width: 750rpx; height: 420rpx;" :src="item.playUrl" controls autoplay danmu-btn
 			enable-danmu :danmu-list="appBarrageList" v-if="showAppVideo"></video>
 
 		<view class="flex justify-center align-center bg-dark" style="width: 750rpx; height: 420rpx;" v-else>
@@ -15,7 +15,7 @@
 		<!-- #endif -->
 
 		<!-- #ifdef MP -->
-		<live-player :src="detail.playUrl" autoplay @statechange="statechange" @error="error"
+		<live-player :src="item.playUrl" autoplay @statechange="statechange" @error="error"
 			style="width: 750rpx; height: 420rpx;" />
 		<!-- #endif -->
 
@@ -69,6 +69,7 @@
 				currentTime: 0,
 				// APP 弹幕
 				appBarrageList: [],
+				// 防止 video 组件先渲染出来后弹幕不出现
 				showAppVideo: false
 
 			};
@@ -168,7 +169,7 @@
 					playbackRate: [0.5, 0.75, 1, 1.5, 2],
 					defaultPlaybackRate: 1
 				});
-				// 播放时间改变
+				// 播放进度变化
 				this.videoPlayer.on('timeupdate', this.handleTimeUpdate)
 			},
 			handleTimeUpdate(e) {
@@ -195,7 +196,7 @@
 					return this.$toast('弹幕内容不能为空')
 				}
 
-				this.$load('加载中...')
+				this.$load('发送中...')
 				this.$api.sendLiveComment({
 					live_id: this.item.id,
 					content,
@@ -229,7 +230,7 @@
 					// #ifdef APP-PLUS
 					this.videoPlayer.sendDanmu({
 						text: `${res.name}: ${res.content}`,
-						color: color: res.color,
+						color: res.color,
 					})
 					// #endif
 				}).finally(() => {

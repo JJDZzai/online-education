@@ -102,11 +102,6 @@ export default {
 		}
 	},
 
-	// 判断是否处于微信浏览器中
-	isInWechat() {
-		return String(navigator.userAgent.toLowerCase().match(/MicroMessenger/i)) === "micromessenger"
-	},
-
 	// APP和小程序支付
 	async appPay(no, success = false, fail = false) {
 		// #ifdef APP-PLUS
@@ -174,10 +169,19 @@ export default {
 		});
 		// #endif
 	},
+
+
+	// H5登录和支付都在这里
+	// 判断是否处于微信浏览器中
+	isInWechat() {
+		return String(navigator.userAgent.toLowerCase().match(/MicroMessenger/i)) === "micromessenger"
+	},
+
 	// 微信H5登录获取code
 	getH5Code() {
 		// 微信公众号的appid
-		let appid = 'wxf0d98abcc66aab61'
+		// let appid = 'wxf0d98abcc66aab61'
+		let appid = 'wx5237b6b69f77ebe5'
 		let href = window.location.href
 		if (href.indexOf('?code') != -1) {
 			let h = href.split('#/')

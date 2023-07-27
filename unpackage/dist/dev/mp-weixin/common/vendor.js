@@ -12893,7 +12893,7 @@ module.exports = _asyncToGenerator, module.exports.__esModule = true, module.exp
 
 /***/ }),
 
-/***/ 438:
+/***/ 436:
 /*!*************************************************************************************************************!*\
   !*** E:/WebFrontEnd/web/FrontEnd/uni-app/online-education/uni_modules/mp-html/components/mp-html/parser.js ***!
   \*************************************************************************************************************/
@@ -15365,7 +15365,7 @@ module.exports = index_cjs;
 
 /***/ }),
 
-/***/ 475:
+/***/ 480:
 /*!**************************************************************************************************!*\
   !*** E:/WebFrontEnd/web/FrontEnd/uni-app/online-education/components/upload-image/permission.js ***!
   \**************************************************************************************************/
@@ -15632,7 +15632,7 @@ module.exports = _slicedToArray, module.exports.__esModule = true, module.export
 
 /***/ }),
 
-/***/ 507:
+/***/ 512:
 /*!***********************************************************************************************************************************!*\
   !*** E:/WebFrontEnd/web/FrontEnd/uni-app/online-education/uni_modules/uni-swipe-action/components/uni-swipe-action-item/mpwxs.js ***!
   \***********************************************************************************************************************************/
@@ -15711,7 +15711,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 508:
+/***/ 513:
 /*!**************************************************************************************************************************************!*\
   !*** E:/WebFrontEnd/web/FrontEnd/uni-app/online-education/uni_modules/uni-swipe-action/components/uni-swipe-action-item/bindingx.js ***!
   \**************************************************************************************************************************************/
@@ -15731,7 +15731,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 509:
+/***/ 514:
 /*!*************************************************************************************************************************************!*\
   !*** E:/WebFrontEnd/web/FrontEnd/uni-app/online-education/uni_modules/uni-swipe-action/components/uni-swipe-action-item/mpother.js ***!
   \*************************************************************************************************************************************/
@@ -15751,7 +15751,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 524:
+/***/ 536:
 /*!*****************************************************************************************************************************!*\
   !*** E:/WebFrontEnd/web/FrontEnd/uni-app/online-education/uni_modules/uni-countdown/components/uni-countdown/i18n/index.js ***!
   \*****************************************************************************************************************************/
@@ -15766,9 +15766,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 525));
-var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 526));
-var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 527));
+var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 537));
+var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 538));
+var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 539));
 var _default = {
   en: _en.default,
   'zh-Hans': _zhHans.default,
@@ -15778,7 +15778,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 525:
+/***/ 537:
 /*!****************************************************************************************************************************!*\
   !*** E:/WebFrontEnd/web/FrontEnd/uni-app/online-education/uni_modules/uni-countdown/components/uni-countdown/i18n/en.json ***!
   \****************************************************************************************************************************/
@@ -15789,7 +15789,7 @@ module.exports = JSON.parse("{\"uni-countdown.day\":\"day\",\"uni-countdown.h\":
 
 /***/ }),
 
-/***/ 526:
+/***/ 538:
 /*!*********************************************************************************************************************************!*\
   !*** E:/WebFrontEnd/web/FrontEnd/uni-app/online-education/uni_modules/uni-countdown/components/uni-countdown/i18n/zh-Hans.json ***!
   \*********************************************************************************************************************************/
@@ -15800,7 +15800,7 @@ module.exports = JSON.parse("{\"uni-countdown.day\":\"天\",\"uni-countdown.h\":
 
 /***/ }),
 
-/***/ 527:
+/***/ 539:
 /*!*********************************************************************************************************************************!*\
   !*** E:/WebFrontEnd/web/FrontEnd/uni-app/online-education/uni_modules/uni-countdown/components/uni-countdown/i18n/zh-Hant.json ***!
   \*********************************************************************************************************************************/
@@ -15811,7 +15811,7 @@ module.exports = JSON.parse("{\"uni-countdown.day\":\"天\",\"uni-countdown.h\":
 
 /***/ }),
 
-/***/ 535:
+/***/ 547:
 /*!*****************************************************************************************************************!*\
   !*** E:/WebFrontEnd/web/FrontEnd/uni-app/online-education/uni_modules/uni-fav/components/uni-fav/i18n/index.js ***!
   \*****************************************************************************************************************/
@@ -15826,9 +15826,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 536));
-var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 537));
-var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 538));
+var _en = _interopRequireDefault(__webpack_require__(/*! ./en.json */ 548));
+var _zhHans = _interopRequireDefault(__webpack_require__(/*! ./zh-Hans.json */ 549));
+var _zhHant = _interopRequireDefault(__webpack_require__(/*! ./zh-Hant.json */ 550));
 var _default = {
   en: _en.default,
   'zh-Hans': _zhHans.default,
@@ -15838,7 +15838,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 536:
+/***/ 548:
 /*!****************************************************************************************************************!*\
   !*** E:/WebFrontEnd/web/FrontEnd/uni-app/online-education/uni_modules/uni-fav/components/uni-fav/i18n/en.json ***!
   \****************************************************************************************************************/
@@ -15849,7 +15849,7 @@ module.exports = JSON.parse("{\"uni-fav.collect\":\"collect\",\"uni-fav.collecte
 
 /***/ }),
 
-/***/ 537:
+/***/ 549:
 /*!*********************************************************************************************************************!*\
   !*** E:/WebFrontEnd/web/FrontEnd/uni-app/online-education/uni_modules/uni-fav/components/uni-fav/i18n/zh-Hans.json ***!
   \*********************************************************************************************************************/
@@ -15860,7 +15860,7 @@ module.exports = JSON.parse("{\"uni-fav.collect\":\"收藏\",\"uni-fav.collected
 
 /***/ }),
 
-/***/ 538:
+/***/ 550:
 /*!*********************************************************************************************************************!*\
   !*** E:/WebFrontEnd/web/FrontEnd/uni-app/online-education/uni_modules/uni-fav/components/uni-fav/i18n/zh-Hant.json ***!
   \*********************************************************************************************************************/
@@ -15871,7 +15871,7 @@ module.exports = JSON.parse("{\"uni-fav.collect\":\"收藏\",\"uni-fav.collected
 
 /***/ }),
 
-/***/ 562:
+/***/ 574:
 /*!************************************************************************************************************************************!*\
   !*** E:/WebFrontEnd/web/FrontEnd/uni-app/online-education/uni_modules/uni-transition/components/uni-transition/createAnimation.js ***!
   \************************************************************************************************************************************/
@@ -16172,11 +16172,7 @@ var _default = {
       second: second
     };
   },
-  // 判断是否处于微信浏览器中
-  isInWechat: function isInWechat() {
-    return String(navigator.userAgent.toLowerCase().match(/MicroMessenger/i)) === "micromessenger";
-  },
-  // APP支付
+  // APP和小程序支付
   appPay: function appPay(no) {
     var _arguments = arguments,
       _this = this;
@@ -16244,10 +16240,16 @@ var _default = {
       }, _callee);
     }))();
   },
+  // H5登录和支付都在这里
+  // 判断是否处于微信浏览器中
+  isInWechat: function isInWechat() {
+    return String(navigator.userAgent.toLowerCase().match(/MicroMessenger/i)) === "micromessenger";
+  },
   // 微信H5登录获取code
   getH5Code: function getH5Code() {
     // 微信公众号的appid
-    var appid = 'wxf0d98abcc66aab61';
+    // let appid = 'wxf0d98abcc66aab61'
+    var appid = 'wx5237b6b69f77ebe5';
     var href = window.location.href;
     if (href.indexOf('?code') != -1) {
       var h = href.split('#/');

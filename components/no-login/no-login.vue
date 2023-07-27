@@ -1,7 +1,7 @@
 <template>
 	<view class="no-login">
 		<image src="/static/noLogin.png" mode="widthFix"></image>
-		<text class="text-muted font-sm mb-3">登录后才可以查看我的学习哦</text>
+		<text class="text-muted font-sm mb-3">登录后才可以查看学习哦</text>
 		<button type="default" size="mini" plain @click="navigateTo('/pages/login/login')">立即登录</button>
 	</view>
 </template>

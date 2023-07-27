@@ -290,12 +290,12 @@
 
 				let id = this.detail.id
 				let type = 'course'
-				
+
 				if (this.detail.flashsale) {
 					id = this.flashsale_id
 					type = 'flashsale'
 				}
-				
+
 				this.authJump(`../create-order/create-order?id=${id}&type=${type}`)
 			}
 		}

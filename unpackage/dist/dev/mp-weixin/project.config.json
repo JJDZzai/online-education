@@ -8,7 +8,7 @@
     "urlCheck": false,
     "es6": false,
     "postcss": false,
-    "minified": false,
+    "minified": true,
     "newFeature": true,
     "bigPackageSizeSupport": true,
     "babelSetting": {
@@ -16,12 +16,11 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "ignoreUploadUnusedFiles": true,
-    "condition": false
+    "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.32.2",
-  "appid": "touristappid",
+  "appid": "wx5237b6b69f77ebe5",
   "projectname": "online-education",
   "condition": {},
   "editorSetting": {

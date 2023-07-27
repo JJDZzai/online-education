@@ -1,9 +1,9 @@
 <template>
 	<view>
 		<!-- #ifdef APP-PLUS -->
-		<uni-search-bar bgColor="#FFFFFF"></uni-search-bar>	
+		<uni-search-bar bgColor="#FFFFFF"></uni-search-bar>
 		<!-- #endif -->
-		
+
 		<!-- 骨架屏组件，首屏优化 -->
 		<index-skeleton v-if="loading"></index-skeleton>
 
@@ -14,8 +14,8 @@
 				<f-search-bar v-if="temp.type == 'search'" :placeholder="temp.placeholder"></f-search-bar>
 
 				<!-- 轮播图 -->
-				<swiper v-else-if="temp.type == 'swiper'" :indicator-dots="true" :autoplay="true" :interval="3000"
-					:duration="1000">
+				<swiper style="height: 310rpx;" v-else-if="temp.type == 'swiper'" :indicator-dots="true" circular acceleration :autoplay="true"
+					:interval="3000" :duration="1000">
 					<swiper-item class="flex justify-center" v-for="(swiper, sI) in temp.data" :key="sI"
 						@click="handleSwiper(swiper)">
 						<image :src="swiper.src" mode="aspectFill" class="swiper-item-image rounded shadow">
@@ -52,11 +52,10 @@
 						</view>
 					</view>
 				</view>
-
 				<view v-else-if="temp.type == 'imageAd'">
 					<!-- 分割线 -->
 					<view class="divider"></view>
-					<image class="footer-image" :src="temp.data" mode="aspectFill" @click="handleAdv(temp)"></image>
+					<image class="footer-image" :src="temp.data" mode="aspectFill" @click="handleAdv"></image>
 				</view>
 			</block>
 		</view>
@@ -100,11 +99,6 @@
 					uni.stopPullDownRefresh()
 				})
 			},
-			refreshCoupon() {
-				if (this.$refs.couponRef && this.$refs.couponRef[0]) {
-					this.$refs.couponRef[0].getData()
-				}
-			},
 			handleSwiper(swiper) {
 				if (swiper.type == 'webview') {
 					this.navigateTo('/pages/webview/webview?url=' + swiper.url)
@@ -112,22 +106,46 @@
 					this.navigateTo('/pages/course-detail/course-detail?id=' + swiper.course_id)
 				}
 			},
+			refreshCoupon() {
+				if (this.$refs.couponRef && this.$refs.couponRef[0]) {
+					this.$refs.couponRef[0].getData()
+				}
+			},
 			// 列表页
 			openList() {
 				this.navigateTo('../../list/list?module=course')
 			},
-			handleAdv(temp) {
+			handleAdv() {
+				// #ifdef H5
 				location.href = 'http://www.dishaxy.com'
+				// #endif
+
+				// #ifdef MP | APP-PLUS
+				uni.navigateTo({
+					url: '/pages/webview/webview?url=http://www.dishaxy.com'
+				})
+				// #endif
 			},
 		}
 	}
 </script>
 
 <style>
+	/* #ifndef MP */
 	.swiper-item-image {
 		width: 710rpx;
 		height: 300rpx;
 	}
+
+	/* #endif */
+
+	/* #ifdef MP */
+	.swiper-item-image {
+		width: 710rpx;
+		height: 300rpx;
+	}
+
+	/* #endif */
 
 	.footer-image {
 		width: 750rpx;

@@ -19,6 +19,7 @@
 			</view>
 
 			<view class="login-section-form">
+				<!-- #ifndef MP -->
 				<uni-icons type="locked-filled" size="20"></uni-icons>
 				<input class="font" type="text" v-if="showPwd" v-model="form.password" placeholder="请输入密码">
 				<input class="font" type="password" v-else v-model="form.password" placeholder="请输入密码">
@@ -27,9 +28,16 @@
 					<uni-icons v-show="showPwd" type="eye-filled" size="20" @click="changeShowpwd"></uni-icons>
 					<uni-icons v-show="!showPwd" type="eye-slash" size="20" @click="changeShowpwd"></uni-icons>
 				</view>
+				<!-- #endif -->
+
+				<!-- #ifdef MP -->
+				<uni-icons type="locked-filled" size="20"></uni-icons>
+				<input class="font" type="password" v-model="form.password" placeholder="请输入密码">
+				<!-- #endif -->
 			</view>
 
 			<view class="login-section-form" v-if="type == 'reg'">
+				<!-- #ifndef MP -->
 				<uni-icons type="locked-filled" size="20"></uni-icons>
 				<input class="font" type="text" v-if="showRePwd" v-model="form.repassword" placeholder="请输入确认密码">
 				<input class="font" type="password" v-else v-model="form.repassword" placeholder="请输入确认密码">
@@ -38,6 +46,12 @@
 					<uni-icons v-show="showRePwd" type="eye-filled" size="20" @click="changeReShowpwd"></uni-icons>
 					<uni-icons v-show="!showRePwd" type="eye-slash" size="20" @click="changeReShowpwd"></uni-icons>
 				</view>
+				<!-- #endif -->
+
+				<!-- #ifdef MP -->
+				<uni-icons type="locked-filled" size="20"></uni-icons>
+				<input class="font" type="password" v-model="form.repassword" placeholder="请输入确认密码">
+				<!-- #endif -->
 			</view>
 
 			<button class="font text-light bg-main" hover-class="bg-main-hover"
@@ -62,11 +76,13 @@
 				<!-- #endif -->
 			</view>
 
-			<checkbox-group class="flex justify-center align-center" v-if="type == 'login'" @change="handleCheck">
+			<checkbox-group v-if="type == 'login'" @change="handleCheck">
 				<label>
 					<checkbox style="transform: scale(0.7);" color="#00bfff" />
+					<text class="font">我已阅读并同意</text>	
 				</label>
-				<text class="text-light-muted font" @click="goRead">已阅读并同意用户协议&隐私声明</text>
+
+				<text class="text-main font" @click="goRead">《用户使用协议和隐私声明》</text>
 			</checkbox-group>
 		</view>
 	</view>
@@ -149,10 +165,11 @@
 				uni.login({
 					provider: 'weixin',
 					success: (res) => {
+						let code = res.code
 						this.$load('登录中...')
 						this.$api.weixinLogin({
 							type: 'mp',
-							code: res.code,
+							code,
 							rawData
 						}).then(user => {
 							this.handleLogin(user)
@@ -206,6 +223,11 @@
 			},
 			changeType() {
 				this.type = this.type == 'login' ? 'reg' : 'login'
+
+				if (this.type == 'reg') {
+					this.form.username = ''
+					this.form.password = ''
+				}
 			},
 			resetForm() {
 				this.form = {
@@ -292,7 +314,7 @@
 <style>
 	.locked-filled {
 		position: absolute;
-		top: 0;
+		top: 0px;
 		right: 0;
 		width: 100rpx;
 		height: 100rpx;

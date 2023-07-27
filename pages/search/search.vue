@@ -11,8 +11,8 @@
 			</view>
 
 			<view class="flex flex-wrap px-2">
-				<uni-badge class="mr-2 mb-2" :text="item" size="normal" :custom-style="customStyle"
-					v-for="(item,index) in list" :key="index" @click="handleSearchEvent(item)"></uni-badge>
+				<text class="badge font-sm bg-light rounded-circle px-2 py-1" v-for="(item, index) in list" :key="index"
+					@click="handleSearchEvent(item)">{{ item }}</text>
 			</view>
 		</view>
 	</view>
@@ -57,9 +57,10 @@
 					this.keyword = value
 				}
 
-				if (this.keyword == '') {
-					return this.$toast('搜索关键字不能为空')
+				if (!this.keyword) {
+					this.$toast('搜索关键字不能为空')
 				}
+
 				// 跳转到搜索结果页
 				this.navigateTo('../search-result/search-result?keyword=' + this.keyword)
 				// 加入到历史记录
@@ -98,9 +99,13 @@
 </script>
 
 <style>
-	.uni_badge {
-		display: flex;
-		align-items: center;
-		padding: 12px 10px !important;
+	.badge {
+		max-width: 300rpx;
+		line-height: 1;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin-right: 25rpx;
+		margin-bottom: 25rpx;
 	}
 </style>

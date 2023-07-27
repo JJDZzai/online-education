@@ -12,9 +12,8 @@
 					<view :class="item.status == 'success' ? 'text-success' : ''">
 						<slot name="actions">{{ item.status == 'success' ? '交易成功' : '等待支付' }}</slot>
 					</view>
-					<!-- v-if="item.status == 'pendding'" -->
 					<view class="payment">
-						<button type="default" size="small" @click="pay(item.no)">立即支付</button>
+						<main-btn  @submit="pay(item.no)">立即支付</main-btn>
 					</view>
 				</view>
 			</uni-card>
@@ -54,6 +53,7 @@
 					page: this.page,
 					limit: this.limit
 				}).then(res => {
+					console.log(res);
 					this.list = this.page == '1' ? res.rows : [...this.list, ...res.rows]
 					this.loadStatus = res.rows.length < this.limit ? 'noMore' : 'more'
 				}).catch(() => {

@@ -2,7 +2,7 @@
 	<view class="scroll-row-item" :class="'cource-' + colType" @click="handleDetail">
 		<view class="view-first position-relative">
 			<image class="cource-image" :src="item.cover" mode="widthFix"></image>
-			<text class="cource-text text-white font-sm mb-1" v-if="item.type">{{ item.type | formatType }}</text>
+			<text class="cource-text text-white font-sm mb-1" v-if="item.type != 'live'">{{ item.type | formatType }}</text>
 		</view>
 		<view class="view-second flex flex-column flex-shrink">
 			<text class="font-md text-ellipsis mt-1" v-if="show">{{ item.title }}</text>
@@ -99,7 +99,7 @@
 		display: flex !important;
 		margin-top: 30rpx;
 	}
-	
+
 	.cource-one .view-first {
 		flex-shrink: 1;
 		margin-right: 20rpx;
